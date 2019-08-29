@@ -1,15 +1,16 @@
 package main.lisp.evaluator.basic;
 
+import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
 import main.lisp.parser.terms.SExpression;
-import main.lisp.parser.terms.Atom;
+import main.lisp.parser.terms.TAtom;
 import main.lisp.parser.terms.IdentifierAtom;
 import main.lisp.parser.terms.NilAtom;
 
 public class EqEvaluator implements Evaluator {
 
 	@Override
-	public SExpression eval(SExpression expr) {
+	public SExpression eval(SExpression expr, Environment environment) {
 		expr = expr.getTail();
 		
 		if (expr instanceof NilAtom || expr.getTail() instanceof NilAtom) {
@@ -25,7 +26,7 @@ public class EqEvaluator implements Evaluator {
 			return new NilAtom();
 		} else {
 			if(firstEvaled.equals(secondEvaled)) {
-				return new IdentifierAtom("T");
+				return new TAtom();
 			} else {
 				return new NilAtom();
 			}

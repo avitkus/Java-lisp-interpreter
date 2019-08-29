@@ -35,10 +35,19 @@ public class TokenFactory {
 	}
 	
 	public static void setTokenClass(TokenType type, Class<? extends Token> clazz) {
-		tokenTypeMap.put(type.name(), clazz);
+		setTokenClass(type.name(), clazz);
 	}
 	
 	public static void setTokenClass(String type, Class<? extends Token> clazz) {
+		try {
+			clazz.getConstructor(String.class);
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException("Specified '" + type + "' token does not have requried constructor with arguments (String)", e);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+			return;
+		}
 		tokenTypeMap.put(type, clazz);
 	}
 	

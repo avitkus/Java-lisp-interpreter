@@ -5,14 +5,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
 
-import main.lisp.parser.terms.BasicExpression;
 import main.lisp.parser.terms.DecimalAtom;
+import main.lisp.parser.terms.ExpressionFactory;
 import main.lisp.parser.terms.IdentifierAtom;
 import main.lisp.parser.terms.IntegerAtom;
 import main.lisp.parser.terms.NilAtom;
 import main.lisp.parser.terms.QuoteAtom;
 import main.lisp.parser.terms.SExpression;
 import main.lisp.parser.terms.StringAtom;
+import main.lisp.parser.terms.TAtom;
 import main.lisp.scanner.tokens.Token;
 import main.lisp.scanner.tokens.TokenType;
 
@@ -75,7 +76,7 @@ public class BasicParser implements Parser {
 		
 		SExpression tail = parseList();
 		
-		return new BasicExpression(head, tail);
+		return ExpressionFactory.newInstance(head, tail);
 	}
 	
 	private SExpression parseAtom() {
@@ -105,6 +106,8 @@ public class BasicParser implements Parser {
 		case IDENTIFIER:
 			if (cur.getValue().equalsIgnoreCase("nil")) {
 				ret = new NilAtom();
+			} else if (cur.getValue().equalsIgnoreCase("t")) {
+				ret = new TAtom();
 			} else {
 				ret = new IdentifierAtom(cur);
 			}

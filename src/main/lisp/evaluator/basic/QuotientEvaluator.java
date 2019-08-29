@@ -1,5 +1,6 @@
 package main.lisp.evaluator.basic;
 
+import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
 import main.lisp.parser.terms.DecimalAtom;
 import main.lisp.parser.terms.SExpression;
@@ -9,7 +10,7 @@ import main.lisp.parser.terms.NilAtom;
 public class QuotientEvaluator implements Evaluator {
 
 	@Override
-	public SExpression eval(SExpression expr) {
+	public SExpression eval(SExpression expr, Environment environment) {
 		expr = expr.getTail();
 		if (expr instanceof NilAtom || expr.getHead() instanceof NilAtom || expr.getTail() instanceof NilAtom) {
 			System.err.println("Missing arguments for operator '/'");
@@ -23,21 +24,27 @@ public class QuotientEvaluator implements Evaluator {
 		DecimalAtom firstDec = null;
 		DecimalAtom secondDec = null;
 		
+		int correctArgs = 0;
+		
 		if (firstEvaled instanceof IntegerAtom) {
 			firstInt = (IntegerAtom)firstEvaled;
+			correctArgs++;
 		}
 		if (firstEvaled instanceof DecimalAtom) {
 			firstDec = (DecimalAtom)firstEvaled;
+			correctArgs++;
 		}
 		
 		if (secondEvaled instanceof IntegerAtom) {
 			secondInt = (IntegerAtom)secondEvaled;
+			correctArgs++;
 		}
 		if (secondEvaled instanceof DecimalAtom) {
 			secondDec = (DecimalAtom)secondEvaled;
+			correctArgs++;
 		}
 		
-		if (firstInt == null && secondInt == null && firstDec == null && secondDec == null) {
+		if (correctArgs != 2) {
 			System.err.println("Arguments for operator '/' must both evaluate to numbers");
 		}
 		

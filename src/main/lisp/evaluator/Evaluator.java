@@ -15,7 +15,8 @@ public interface Evaluator {
 	 * Evaluates the lisp code represented by an {@link SExpression S-Expression}.
 	 * 
 	 * @param expr S-Expression to evaluate
+	 * @param environment TODO
 	 * @return result of evaluation
 	 */
-	public SExpression eval(SExpression expr);
+	public SExpression eval(SExpression expr, Environment environment);
 }

@@ -1,15 +1,16 @@
 package main.lisp.evaluator.basic;
 
+import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
 import main.lisp.parser.terms.Atom;
-import main.lisp.parser.terms.BasicExpression;
+import main.lisp.parser.terms.ExpressionFactory;
 import main.lisp.parser.terms.SExpression;
 import main.lisp.parser.terms.NilAtom;
 
 public class CdrEvaluator implements Evaluator {
 
 	@Override
-	public SExpression eval(SExpression expr) {
+	public SExpression eval(SExpression expr, Environment environment) {
 		expr = expr.getTail();
 		if (!(expr.getHead() instanceof Atom) && expr.getTail() instanceof NilAtom) {
 			expr = expr.getHead();
@@ -33,7 +34,7 @@ public class CdrEvaluator implements Evaluator {
 			if (firstEvaled instanceof NilAtom) {
 				return firstEvaled;
 			} else {
-				return new BasicExpression(firstEvaled, new NilAtom());
+				return ExpressionFactory.newInstance(firstEvaled, new NilAtom());
 			}
 		} else {
 			return firstEvaled;

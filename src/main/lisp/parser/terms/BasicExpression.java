@@ -7,15 +7,6 @@ public class BasicExpression implements SExpression {
 	private final SExpression head;
 	private final SExpression tail;
 	
-
-	public BasicExpression() {
-		this(new NilAtom(), new NilAtom());
-	}
-	
-	public BasicExpression(SExpression head) {
-		this(head, new NilAtom());
-	}
-	
 	public BasicExpression(SExpression head, SExpression tail) {
 		this.head = head;
 		this.tail = tail;
@@ -29,7 +20,7 @@ public class BasicExpression implements SExpression {
 			if (eval == null) {
 				System.err.println("No evaluator registered for operator '" + operator + "'");
 			}
-			return eval.eval(this);
+			return eval.eval(this, null);
 		} else if (tail instanceof NilAtom) {
 			return head.eval();
 		} else {

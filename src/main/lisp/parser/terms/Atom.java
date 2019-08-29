@@ -15,4 +15,24 @@ public interface Atom<T> extends SExpression {
 	 * @return atom's value
 	 */
 	public T getValue();
+	
+
+	/**
+	 * An atom does not have a head. This could be implemented to return itself and still
+	 * function, but this helps avoid using them incorrectly.
+	 * 
+	 */
+	@Override
+	default public SExpression getHead() {
+		throw new java.lang.UnsupportedOperationException("Instances of Atom do not have a head");
+	}
+
+	/**
+	 * An atom does not have a tail. This could be implemented to return some known value
+	 * (i.e {@code null}) and still function, but this is more clear.
+	 */
+	@Override
+	default public SExpression getTail() {
+		throw new java.lang.UnsupportedOperationException("Instances of Atom do not have a tail");
+	}
 }

@@ -3,7 +3,6 @@ package main;
 import java.util.Scanner;
 
 import main.lisp.ObservableLispInterpreter;
-import main.lisp.evaluator.BasicOperationRegisterer;
 
 /**
  * <p>The {@code BasicLispInterpreterController} class creates a controller for
@@ -18,13 +17,13 @@ import main.lisp.evaluator.BasicOperationRegisterer;
  *
  */
 public class BasicLispInterpreterController {
+	private final ObservableLispInterpreter interpreter;
 	
-	public static void main(String[] args) {
-		BasicOperationRegisterer.registerAll();
-		
-		ObservableLispInterpreter interpreter = new ObservableLispInterpreter();
-		interpreter.registerPropertyChangeListener(new BasicLispInterpreterListener());
-		
+	public BasicLispInterpreterController(ObservableLispInterpreter interpreter) {
+		this.interpreter = interpreter;
+	}
+	
+	public void run() {
 		try (Scanner keyboard = new Scanner(System.in)){ 
 			String line = keyboard.nextLine();
 			while (!line.equals(".")) {

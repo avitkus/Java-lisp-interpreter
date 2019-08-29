@@ -10,11 +10,11 @@ public class CarEvaluator implements Evaluator {
 	@Override
 	public SExpression eval(SExpression expr) {
 		expr = expr.getTail();
-		if (expr instanceof NilAtom || expr.getHead() instanceof NilAtom) {
+		if (expr instanceof NilAtom) {
 			System.err.println("Missing arguments for operator 'car'");
 		}
 		
-		if (expr instanceof Atom) {
+		if (expr instanceof Atom && !(expr instanceof NilAtom)) {
 			System.err.println("Cannot apply operator 'car' to atomic expressions");
 		}
 		

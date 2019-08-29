@@ -11,20 +11,30 @@ public class CdrEvaluator implements Evaluator {
 	@Override
 	public SExpression eval(SExpression expr) {
 		expr = expr.getTail();
-		expr = expr.eval();
-		if (expr instanceof NilAtom || expr.getHead() instanceof NilAtom) {
-			System.err.println("Missing arguments for operator 'cdr'");
+		if (!(expr.getHead() instanceof Atom) && expr.getTail() instanceof NilAtom) {
+			expr = expr.getHead();
 		}
+		if (expr instanceof NilAtom) {
+			System.err.println("Missing arguments for operator 'car'");
+		}
+		expr = expr.eval();
 
-		if (expr instanceof Atom) {
+		if (expr instanceof Atom && !(expr instanceof NilAtom)) {
 			System.err.println("Cannot apply operator 'cdr' to atomic expressions");
 		}
 		
+		if (expr instanceof NilAtom) {
+			return expr;
+		}
 		
 		SExpression firstEvaled = expr.getTail();//expr.eval().getTail();
 		
 		if (firstEvaled instanceof Atom) {
-			return new BasicExpression(firstEvaled, new NilAtom());
+			if (firstEvaled instanceof NilAtom) {
+				return firstEvaled;
+			} else {
+				return new BasicExpression(firstEvaled, new NilAtom());
+			}
 		} else {
 			return firstEvaled;
 		}

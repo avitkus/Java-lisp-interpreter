@@ -26,6 +26,7 @@ public class BasicLispInterpreterListener implements PropertyChangeListener {
 			break;
 		case ObservableLispInterpreter.EXPRESSION_PROPERTY:
 			SExpression e = (SExpression)evt.getNewValue();
+//			System.out.println(e);
 			SExpression evaled = e.eval();
 			System.out.println(evaled);
 		}

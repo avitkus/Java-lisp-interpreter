@@ -5,16 +5,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
 
-import main.lisp.parser.terms.Atom;
 import main.lisp.parser.terms.BasicExpression;
 import main.lisp.parser.terms.DecimalAtom;
-import main.lisp.parser.terms.SExpression;
 import main.lisp.parser.terms.IdentifierAtom;
 import main.lisp.parser.terms.IntegerAtom;
 import main.lisp.parser.terms.NilAtom;
 import main.lisp.parser.terms.QuoteAtom;
+import main.lisp.parser.terms.SExpression;
 import main.lisp.parser.terms.StringAtom;
-import main.lisp.scanner.tokens.IdentifierToken;
 import main.lisp.scanner.tokens.Token;
 import main.lisp.scanner.tokens.TokenType;
 
@@ -23,8 +21,6 @@ public class BasicParser implements Parser {
 	
 	private int exprCount;
 	private int parenCount;
-	
-	private boolean prevEndParen;
 	
 	private boolean isQuoted;
 	private int quotedParens;
@@ -38,24 +34,11 @@ public class BasicParser implements Parser {
 		quotedParens = 0;
 		parenCount = 0;
 		exprCount = 0;
-		prevEndParen = false;
 	}
 	
 	private void parse() {
 		exprCount --;
 		root = parseStart();
-		root = cleanEnd(root);
-	}
-	
-	private SExpression cleanEnd(SExpression e) {
-		if (e instanceof Atom) {
-			return e;
-		}
-		if (e.getTail().getTail() instanceof NilAtom && !(e.getTail().getHead() instanceof NilAtom)) {// && (e.getTail().getHead() instanceof Atom)) {
-			return new BasicExpression(cleanEnd(e.getHead()), cleanEnd(e.getTail().getHead()));
-		} else {
-			return new BasicExpression(cleanEnd(e.getHead()), cleanEnd(e.getTail()));
-		}
 	}
 	
 	private SExpression parseStart() {
@@ -68,50 +51,11 @@ public class BasicParser implements Parser {
 			tokens.poll();
 			return parseList();
 		} else {
-			SExpression head = parseAtom();
-			SExpression tail = parseLisp();
-			if (tail.getTail() == null) {
-				tail = tail.getHead();
-			}
-//			if (tail instanceof NilAtom) {
-//				return head;
-//			} else {
-				return new BasicExpression(head, tail);
-//			}
-//			return new BasicExpression(parseAtom(), parseLisp());
-		}
-	}
-	
-	private SExpression parseLisp() {
-		if (tokens.isEmpty()) {
-			return new NilAtom();
-		}
-		Token cur = tokens.peek();
-		
-		if (cur.getType() == TokenType.OPEN) {
-			tokens.poll();
-			return new BasicExpression(parseList(), parseLisp());
-		} else {
-			SExpression head = parseAtom();
-			SExpression tail = parseLisp();
-			
-//			if (tail == null) {
-//				return null;
-//			}
-			
-			if (tail.getTail() == null) {
-				tail = tail.getHead();
-			}
-			
-			return new BasicExpression(head, tail);
-//			return new BasicExpression(parseAtom(), parseLisp());
+			return parseAtom();
 		}
 	}
 	
 	private SExpression parseLispSingle() {
-		if (tokens.isEmpty()) {
-			return new NilAtom();
-		}
 		Token cur = tokens.peek();
 		
 		if (cur.getType() == TokenType.OPEN) {
@@ -131,14 +75,6 @@ public class BasicParser implements Parser {
 		
 		SExpression tail = parseList();
 		
-		if (tail != null && tail.getTail() == null) {
-			if (!prevEndParen) {//!tokens.isEmpty()) {
-				tail = tail.getHead();
-			} else {
-				tail = new BasicExpression(tail.getHead(), new NilAtom());
-			}
-		}
-		
 		return new BasicExpression(head, tail);
 	}
 	
@@ -146,30 +82,37 @@ public class BasicParser implements Parser {
 		if (tokens.isEmpty()) {
 			return new NilAtom();
 		}
-		prevEndParen = false;
+		
+		SExpression ret;
 		
 		Token cur = tokens.poll();
-		SExpression ret = null;
-		if (cur.getType() == TokenType.INTEGER){
+		switch(cur.getType()) {
+		case INTEGER:
 			ret = new IntegerAtom(cur);
-		} else if (cur.getType() == TokenType.DECIMAL) {
+			break;
+		case DECIMAL:
 			ret = new DecimalAtom(cur);
-		} else if (cur.getType() == TokenType.STRING) {
+			break;
+		case STRING:
 			ret = new StringAtom(cur);
-		} else if (cur.getType() == TokenType.QUOTE) {
+			break;
+		case QUOTE:
 			ret = new QuoteAtom(parseLispSingle());
-		} else if (cur.getType() == TokenType.CLOSE) {
+			break;
+		case CLOSE:
 			ret = null;
-			prevEndParen = true;
-		} else if (cur.getType() == TokenType.IDENTIFIER) {
+			break;
+		case IDENTIFIER:
 			if (cur.getValue().equalsIgnoreCase("nil")) {
 				ret = new NilAtom();
 			} else {
 				ret = new IdentifierAtom(cur);
 			}
-		} else {
+			break;
+		default:
 			ret = new IdentifierAtom(cur);
 		}
+		
 		return ret;
 	}
 	

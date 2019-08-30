@@ -3,7 +3,7 @@ package main.lisp.scanner.tokens;
 public class IdentifierToken extends AbstractToken {
 	
 	public IdentifierToken(String value) {
-		super(value, TokenType.IDENTIFIER);
+		super(value.toUpperCase(), TokenType.IDENTIFIER);
 	}
 
 	@Override

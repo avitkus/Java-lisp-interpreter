@@ -15,8 +15,8 @@ public class ConsEvaluator implements Evaluator {
 			System.err.println("Missing arguments for operator 'cons'");
 		}
 		
-		SExpression firstEvaled = expr.getHead().eval();
-		SExpression secondEvaled = expr.getTail().eval();
+		SExpression firstEvaled = expr.getHead().eval(environment);
+		SExpression secondEvaled = expr.getTail().eval(environment);
 		
 		SExpression ret = ExpressionFactory.newInstance(firstEvaled, secondEvaled);
 		return ret;

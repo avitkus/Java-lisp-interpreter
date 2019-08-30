@@ -4,9 +4,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class allows the classes used to represent the default tokens to be
+ * replaced and new tokens added.
+ * 
+ * @author Andrew Vitkus
+ *
+ */
 public class TokenFactory {
-	private static Map<String, Class<?>> defaultTokenTypeMap;
-	private static Map<String, Class<?>> tokenTypeMap;
+	private static Map<String, Class<? extends Token>> defaultTokenTypeMap;
+	private static Map<String, Class<? extends Token>> tokenTypeMap;
 	
 	static {
 		defaultTokenTypeMap = new HashMap<>();
@@ -34,10 +41,30 @@ public class TokenFactory {
 		tokenTypeMap.put(TokenType.QUOTE.name(), QuoteToken.class);
 	}
 	
+	/**
+	 * Sets the class for a default token type.
+	 * 
+	 * @param type token type
+	 * @param clazz token class
+	 * @throws IllegalArgumentException if registering a token for the {@link TokenType#OTHER} type
+	 * @throws IllegalArgumentException if the token class does not have a construction taking
+	 *                                  a {@link String} argument
+	 */
 	public static void setTokenClass(TokenType type, Class<? extends Token> clazz) {
+		if (type == TokenType.OTHER) {
+			throw new IllegalArgumentException("Non-default tokens must be registered with their type, not other");
+		}
 		setTokenClass(type.name(), clazz);
 	}
 	
+	/**
+	 * Sets the class for any token type.
+	 * 
+	 * @param type token type name
+	 * @param clazz token class
+	 * @throws IllegalArgumentException if the token class does not have a construction taking
+	 *                                  a {@link String} argument
+	 */
 	public static void setTokenClass(String type, Class<? extends Token> clazz) {
 		try {
 			clazz.getConstructor(String.class);
@@ -51,7 +78,18 @@ public class TokenFactory {
 		tokenTypeMap.put(type, clazz);
 	}
 	
+	/**
+	 * Creates a new token with the given type and value.
+	 * 
+	 * @param type token type
+	 * @param value token value
+	 * @return token
+	 * @throws IllegalArgumentException if registering a token for the {@link TokenType#OTHER} type
+	 */
 	public static Token newInstance(TokenType type, String value) {
+		if (type == TokenType.OTHER) {
+			throw new IllegalArgumentException("Other is not a valid token type");
+		}
 		try {
 			return (Token) tokenTypeMap.get(type.name()).getConstructor(String.class).newInstance(value);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
@@ -65,6 +103,14 @@ public class TokenFactory {
 		}
 	}
 	
+	/**
+	 * Creates a new token with the given type name and value.
+	 * 
+	 * @param type token type name
+	 * @param value token value
+	 * @return token
+	 * @throws IllegalArgumentException if no class is registered for this token type
+	 */
 	public static Token newInstance(String type, String value) {
 		try {
 			if (!tokenTypeMap.containsKey(type)) {

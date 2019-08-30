@@ -11,10 +11,10 @@ public class BasicOperationManager implements OperationManager {
 	}
 	
 	public void registerEvaluator(String name, Evaluator evaluator) {
-		evaluatorMap.put(name, evaluator);
+		evaluatorMap.put(name.toUpperCase(), evaluator);
 	}
 	
 	public Evaluator getEvaluator(String name) {
-		return evaluatorMap.get(name);
+		return evaluatorMap.get(name.toUpperCase());
 	}
 }

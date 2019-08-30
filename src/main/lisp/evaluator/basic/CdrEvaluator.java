@@ -18,7 +18,7 @@ public class CdrEvaluator implements Evaluator {
 		if (expr instanceof NilAtom) {
 			System.err.println("Missing arguments for operator 'car'");
 		}
-		expr = expr.eval();
+		expr = expr.eval(environment);
 
 		if (expr instanceof Atom && !(expr instanceof NilAtom)) {
 			System.err.println("Cannot apply operator 'cdr' to atomic expressions");

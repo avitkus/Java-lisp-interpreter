@@ -19,8 +19,8 @@ public class EqEvaluator implements Evaluator {
 		SExpression firstExpr = expr.getHead();
 		SExpression secondExpr = expr.getTail().getHead();
 
-		SExpression firstEvaled = firstExpr.eval();
-		SExpression secondEvaled = secondExpr.eval();
+		SExpression firstEvaled = firstExpr.eval(environment);
+		SExpression secondEvaled = secondExpr.eval(environment);
 		
 		if (!firstEvaled.getClass().equals(secondEvaled.getClass())) {
 			return new NilAtom();

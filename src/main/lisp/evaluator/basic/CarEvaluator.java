@@ -19,7 +19,7 @@ public class CarEvaluator implements Evaluator {
 			System.err.println("Cannot apply operator 'car' to atomic expressions");
 		}
 		
-		SExpression firstEvaled = expr.eval().getHead();
+		SExpression firstEvaled = expr.eval(environment).getHead();
 		
 		return firstEvaled;
 	}

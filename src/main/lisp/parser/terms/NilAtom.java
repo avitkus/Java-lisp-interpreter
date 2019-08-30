@@ -18,4 +18,9 @@ public class NilAtom extends AbstractAtom<String> {
 	public boolean equals(Object o) {
 		return o instanceof NilAtom;
 	}
+	
+	@Override
+	public String toStringAsList() {
+		return "()";
+	}
 }

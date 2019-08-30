@@ -1,5 +1,6 @@
 package main.lisp.parser.terms;
 
+import main.lisp.evaluator.Environment;
 import main.lisp.scanner.tokens.Token;
 
 public abstract class AbstractAtom<T> implements Atom<T> {
@@ -10,13 +11,13 @@ public abstract class AbstractAtom<T> implements Atom<T> {
 	}
 	
 	@Override
-	public SExpression eval() {
+	public SExpression eval(Environment environment) {
 		return this;
 	}
 	
 	@Override
 	public String toString() {
-		return token.getValue();
+		return toStringAsSExpression();
 	}
 
 	@Override
@@ -27,5 +28,20 @@ public abstract class AbstractAtom<T> implements Atom<T> {
 	@Override
 	public SExpression getTail() {
 		return new NilAtom();
+	}
+	
+	@Override
+	public boolean isList() {
+		return false;
+	}
+	
+	@Override
+	public String toStringAsList() {
+		return "";
+	}
+	
+	@Override
+	public String toStringAsSExpression() {
+		return token.getValue();
 	}
 }

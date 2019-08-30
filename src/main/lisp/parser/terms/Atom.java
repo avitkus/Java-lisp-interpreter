@@ -24,7 +24,7 @@ public interface Atom<T> extends SExpression {
 	 */
 	@Override
 	default public SExpression getHead() {
-		throw new java.lang.UnsupportedOperationException("Instances of Atom do not have a head");
+		throw new UnsupportedOperationException("Instances of Atom do not have a head");
 	}
 
 	/**
@@ -33,6 +33,6 @@ public interface Atom<T> extends SExpression {
 	 */
 	@Override
 	default public SExpression getTail() {
-		throw new java.lang.UnsupportedOperationException("Instances of Atom do not have a tail");
+		throw new UnsupportedOperationException("Instances of Atom do not have a tail");
 	}
 }

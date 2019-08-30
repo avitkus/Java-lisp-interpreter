@@ -16,8 +16,8 @@ public class QuotientEvaluator implements Evaluator {
 			System.err.println("Missing arguments for operator '/'");
 		}
 		
-		SExpression firstEvaled = expr.getHead().eval();
-		SExpression secondEvaled = expr.getTail().eval();
+		SExpression firstEvaled = expr.getHead().eval(environment);
+		SExpression secondEvaled = expr.getTail().eval(environment);
 		
 		IntegerAtom firstInt = null;
 		IntegerAtom secondInt = null;

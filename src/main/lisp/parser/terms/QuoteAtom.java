@@ -1,5 +1,6 @@
 package main.lisp.parser.terms;
 
+import main.lisp.evaluator.Environment;
 import main.lisp.scanner.tokens.TokenFactory;
 import main.lisp.scanner.tokens.TokenType;
 
@@ -12,7 +13,7 @@ public class QuoteAtom extends AbstractAtom<String> {
 	}
 	
 	@Override
-	public SExpression eval() {
+	public SExpression eval(Environment environment) {
 		return expr;
 	}
 

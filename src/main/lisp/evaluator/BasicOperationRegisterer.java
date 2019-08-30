@@ -6,6 +6,8 @@ import main.lisp.evaluator.basic.CdrEvaluator;
 import main.lisp.evaluator.basic.ConsEvaluator;
 import main.lisp.evaluator.basic.DifferenceEvaluator;
 import main.lisp.evaluator.basic.EqEvaluator;
+import main.lisp.evaluator.basic.EqualsEvaluator;
+import main.lisp.evaluator.basic.NotEqualsEvaluator;
 import main.lisp.evaluator.basic.NullEvaluator;
 import main.lisp.evaluator.basic.ProductEvaluator;
 import main.lisp.evaluator.basic.QuotientEvaluator;
@@ -19,7 +21,7 @@ import main.lisp.evaluator.basic.SumEvaluator;
  * @author Andrew Vitkus
  *
  */
-public class BasicOperationRegisterer {
+public class BasicOperationRegisterer implements OperationRegisterer {
 	
 	/**
 	 * Registers the basic arithmetic operations as <em>+</em>, <em>-</em>, <em>*</em>, and <em>/</em>.
@@ -54,12 +56,16 @@ public class BasicOperationRegisterer {
 	}
 
 	/**
-	 * Registers a sample conditional expression: <em>eq</eq>.
+	 * Registers a sample comparison expression: <em>eq</eq>, <em>=</em>, <em>/=</em>.
 	 * 
 	 * @see EqEvaluator
+	 * @see EqualsEvaluator
+	 * @see NotEqualsEvaluator
 	 */
-	public static void registerConditional() {
+	public static void registerComparison() {
 		BuiltinOperationManagerSingleton.get().registerEvaluator("eq", new EqEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluator("=", new EqualsEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluator("/=", new NotEqualsEvaluator());
 	}
 	
 	/**
@@ -69,6 +75,16 @@ public class BasicOperationRegisterer {
 	public static void registerAll() {
 		registerArithmetic();
 		registerExpressionFunctions();
-		registerConditional();
+		registerComparison();
+	}
+
+	/**
+	 * Registers all basic operations.
+	 * 
+	 * @see #registerAll();
+	 */
+	@Override
+	public void registerOperations() {
+		registerAll();
 	}
 }

@@ -12,7 +12,7 @@ public class NullEvaluator implements Evaluator {
 	public SExpression eval(SExpression expr, Environment environment) {
 		expr = expr.getTail();
 		
-		SExpression firstEvaled = expr.eval();
+		SExpression firstEvaled = expr.eval(environment);
 		
 		if (firstEvaled instanceof NilAtom) {
 			return new IdentifierAtom("T");

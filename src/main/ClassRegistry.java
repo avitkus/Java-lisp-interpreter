@@ -13,6 +13,13 @@ import main.lisp.parser.terms.SExpression;
  */
 public interface ClassRegistry {
 	/**
+	 * Returns the class containing the main method for grading.
+	 * 
+	 * @return main class
+	 */
+	public Class<?> getMain();
+	
+	/**
 	 * Returns a class that can be used to load any custom operation evaluators.
 	 * 
 	 * @return operation registerer class

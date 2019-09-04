@@ -1,9 +1,8 @@
-package main;
+package main.lisp.interpreter;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import main.lisp.ObservableLispInterpreter;
 import main.lisp.parser.terms.SExpression;
 import main.lisp.scanner.tokens.Token;
 
@@ -16,7 +15,7 @@ import main.lisp.scanner.tokens.Token;
  * @author Andrew Vitkus
  *
  */
-public class BasicLispInterpreterListener implements PropertyChangeListener {
+public class BasicLispInterpreterView implements InterpreterView {
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {

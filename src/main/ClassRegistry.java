@@ -60,6 +60,13 @@ public interface ClassRegistry {
 	 * @return cond evaluator class
 	 */
 	public Class<? extends Evaluator> getCondEvaluator();
+
+	/**
+	 * Gets the class implementing the "list" operation's evaluator
+	 * 
+	 * @return list evaluator class
+	 */
+	public Class<? extends Evaluator> getListEvaluator();
 	
 
 	/**

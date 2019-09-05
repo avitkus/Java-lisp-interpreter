@@ -12,7 +12,8 @@ public class ConsEvaluator implements Evaluator {
 	public SExpression eval(SExpression expr, Environment environment) {
 		expr = expr.getTail();
 		if (expr instanceof NilAtom || expr.getTail() instanceof NilAtom) {
-			System.err.println("Missing arguments for operator 'cons'");
+//			System.err.println("Missing arguments for operator 'cons'");
+			throw new IllegalStateException("Missing arguments for operator 'cons'");
 		}
 		
 		SExpression firstEvaled = expr.getHead().eval(environment);

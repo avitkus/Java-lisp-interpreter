@@ -14,7 +14,8 @@ public class EqualsEvaluator implements Evaluator {
 	public SExpression eval(SExpression expr, Environment environment) {
 		expr = expr.getTail();
 		if (expr instanceof NilAtom || expr.getHead() instanceof NilAtom || expr.getTail() instanceof NilAtom) {
-			System.err.println("Missing arguments for operator '='");
+//			System.err.println("Missing arguments for operator '='");
+			throw new IllegalStateException("Missing arguments for operator '='");
 		}
 		
 		SExpression firstEvaled = expr.getHead().eval(environment);
@@ -46,7 +47,8 @@ public class EqualsEvaluator implements Evaluator {
 		}
 		
 		if (correctArgs != 2) {
-			System.err.println("Arguments for operator '=' must both evaluate to numbers");
+//			System.err.println("Arguments for operator '=' must both evaluate to numbers");
+			throw new IllegalStateException("Arguments for operator '=' must both evaluate to numbers");
 		}
 		
 		boolean equal;

@@ -11,6 +11,11 @@ public class NullEvaluator implements Evaluator {
 	@Override
 	public SExpression eval(SExpression expr, Environment environment) {
 		expr = expr.getTail();
+
+		if (expr instanceof NilAtom) {
+//			System.err.println("Missing arguments for operator 'null'");
+			throw new IllegalStateException("Missing arguments for operator 'null'");
+		}
 		
 		SExpression firstEvaled = expr.eval(environment);
 		

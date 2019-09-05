@@ -17,6 +17,7 @@ public interface Evaluator {
 	 * @param expr S-Expression to evaluate
 	 * @param environment TODO
 	 * @return result of evaluation
+	 * @throws IllegalStateException if this expression is malformed
 	 */
 	public SExpression eval(SExpression expr, Environment environment);
 }

@@ -12,6 +12,11 @@ public class AtomEvaluator implements Evaluator {
 	@Override
 	public SExpression eval(SExpression expr, Environment environment) {
 		expr = expr.getTail();
+
+		if (expr instanceof NilAtom) {
+//			System.err.println("Missing arguments for operator 'atom'");
+			throw new IllegalStateException("Missing arguments for operator 'atom'");
+		}
 		
 		SExpression firstEvaled = expr.eval(environment);
 		

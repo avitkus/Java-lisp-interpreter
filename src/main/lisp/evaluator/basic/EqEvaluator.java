@@ -2,10 +2,9 @@ package main.lisp.evaluator.basic;
 
 import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
+import main.lisp.parser.terms.NilAtom;
 import main.lisp.parser.terms.SExpression;
 import main.lisp.parser.terms.TAtom;
-import main.lisp.parser.terms.IdentifierAtom;
-import main.lisp.parser.terms.NilAtom;
 
 public class EqEvaluator implements Evaluator {
 
@@ -14,7 +13,8 @@ public class EqEvaluator implements Evaluator {
 		expr = expr.getTail();
 		
 		if (expr instanceof NilAtom || expr.getTail() instanceof NilAtom) {
-			System.err.println("Missing arguments for operator 'eq'");
+//			System.err.println("Missing arguments for operator 'eq'");
+			throw new IllegalStateException("Missing arguments for operator 'eq'");
 		}
 		SExpression firstExpr = expr.getHead();
 		SExpression secondExpr = expr.getTail().getHead();

@@ -1,7 +1,6 @@
 package main.lisp.interpreter;
 
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import main.lisp.parser.terms.SExpression;
 import main.lisp.scanner.tokens.Token;
@@ -24,9 +23,11 @@ public class BasicLispInterpreterView implements InterpreterView {
 			Token t = (Token)evt.getNewValue();
 			break;
 		case ObservableLispInterpreter.EXPRESSION_PROPERTY:
-			SExpression e = (SExpression)evt.getNewValue();
-//			System.out.println(e);
-			SExpression evaled = e.eval(null);
+			SExpression raw = (SExpression)evt.getNewValue();
+			System.out.println(raw);
+			break;
+		case ObservableLispInterpreter.RESULT_PROPERTY:
+			SExpression evaled = (SExpression)evt.getNewValue();
 			System.out.println(evaled);
 		}
 	}

@@ -29,6 +29,7 @@ public class ObservableLispInterpreter implements InterpreterModel {
 	
 	public static final String TOKEN_PROPERTY = "token";
 	public static final String EXPRESSION_PROPERTY = "expresssion";
+	public static final String RESULT_PROPERTY = "result";
 	
 	public ObservableLispInterpreter() {
 		scanner = ScannerFactory.newInstance();
@@ -61,14 +62,16 @@ public class ObservableLispInterpreter implements InterpreterModel {
 			Token realToken = token.get();
 			firePropertyChange(TOKEN_PROPERTY, realToken);
 			parser.giveToken(realToken);
-			token = scanner.nextToken();
 		}
 		Optional<SExpression> expression = parser.getExpression();
 		while(expression.isPresent()) {
 			SExpression realExpression = expression.get();
 			firePropertyChange(EXPRESSION_PROPERTY, realExpression);
+			SExpression result = realExpression.eval(null);
+			firePropertyChange(RESULT_PROPERTY, result);
 			expression = parser.getExpression();
 		}
+		token = scanner.nextToken();
 	}
 	
 	private void firePropertyChange(String property, Object value) {

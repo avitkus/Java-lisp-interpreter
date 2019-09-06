@@ -26,7 +26,7 @@ public class ExpressionFactory {
 	 * @throws IllegalArgumentException if the specified class does not have a constructor
 	 *                                  taking two instances of {@link SExpression}
 	 */
-	public void setClass(Class<? extends SExpression> clazz) {
+	public static void setClass(Class<? extends SExpression> clazz) {
 		try {
 			clazz.getConstructor(SExpression.class, SExpression.class);
 		} catch (NoSuchMethodException e) {

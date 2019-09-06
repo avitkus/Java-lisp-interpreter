@@ -9,7 +9,7 @@ public class ParserFactory {
 		parserClass = defaultParserClass;
 	}
 	
-	public void setClass(Class<? extends Parser> clazz) {
+	public static void setClass(Class<? extends Parser> clazz) {
 		parserClass = clazz;
 	}
 	

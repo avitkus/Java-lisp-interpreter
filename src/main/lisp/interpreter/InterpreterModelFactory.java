@@ -21,7 +21,7 @@ public class InterpreterModelFactory {
 	 * 
 	 * @param clazz new interpreter model class
 	 */
-	public void setClass(Class<? extends InterpreterModel> clazz) {
+	public static void setClass(Class<? extends InterpreterModel> clazz) {
 		modelClass = clazz;
 	}
 	

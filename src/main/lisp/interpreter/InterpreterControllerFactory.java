@@ -22,7 +22,7 @@ public class InterpreterControllerFactory {
 	 * 
 	 * @param clazz new interpreter controller class
 	 */
-	public void setClass(Class<? extends InterpreterController> clazz) {
+	public static void setClass(Class<? extends InterpreterController> clazz) {
 		controllerClass = clazz;
 	}
 	

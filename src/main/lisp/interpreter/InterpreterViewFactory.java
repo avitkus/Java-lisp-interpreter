@@ -22,7 +22,7 @@ public class InterpreterViewFactory {
 	 * 
 	 * @param clazz new interpreter view class
 	 */
-	public void setClass(Class<? extends InterpreterView> clazz) {
+	public static void setClass(Class<? extends InterpreterView> clazz) {
 		controllerClass = clazz;
 	}
 	

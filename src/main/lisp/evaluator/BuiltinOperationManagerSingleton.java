@@ -27,7 +27,7 @@ public class BuiltinOperationManagerSingleton {
 	 * @throws UnsupportedOperationException if changing the class after the singleton has
 	 *         been created
 	 */
-	public void setClass(Class<? extends OperationManager> clazz) {
+	public static void setClass(Class<? extends OperationManager> clazz) {
 		if (builtinOperationManager != null) {
 			throw new UnsupportedOperationException("Cannot change built-in operation manager class after instantiation");
 		}

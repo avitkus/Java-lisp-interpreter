@@ -9,7 +9,7 @@ public class ScannerFactory {
 		scannerClass = defaultScannerClass;
 	}
 	
-	public void setClass(Class<? extends Scanner> clazz) {
+	public static void setClass(Class<? extends Scanner> clazz) {
 		scannerClass = clazz;
 	}
 	

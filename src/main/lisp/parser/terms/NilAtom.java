@@ -23,4 +23,9 @@ public class NilAtom extends AbstractAtom<String> {
 	public String toStringAsList() {
 		return "()";
 	}
+	
+	@Override
+	public boolean isList() {
+		return true;
+	}
 }

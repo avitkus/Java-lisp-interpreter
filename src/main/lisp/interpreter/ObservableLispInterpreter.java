@@ -62,6 +62,7 @@ public class ObservableLispInterpreter implements InterpreterModel {
 			Token realToken = token.get();
 			firePropertyChange(TOKEN_PROPERTY, realToken);
 			parser.giveToken(realToken);
+			token = scanner.nextToken();
 		}
 		Optional<SExpression> expression = parser.getExpression();
 		while(expression.isPresent()) {

@@ -53,4 +53,6 @@ public interface SExpression {
 	 * @return formatted S-Expression
 	 */
 	public String toStringAsSExpression();
+	
+	public String toStringAsSExpressionDeep();
 }

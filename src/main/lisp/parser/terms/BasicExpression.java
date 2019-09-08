@@ -19,15 +19,12 @@ public class BasicExpression implements SExpression {
 			String operator = ((IdentifierAtom)head).getValue();
 			Evaluator eval = BuiltinOperationManagerSingleton.get().getEvaluator(operator);
 			if (eval == null) {
-				System.err.println("No evaluator registered for operator '" + operator + "'");
+				throw new IllegalStateException("No evaluator registered for operator '" + operator + "'");
 			}
 			return eval.eval(this, environment);
-		} else if (tail instanceof NilAtom) {
-			return head.eval(environment);
 		} else {
-			System.err.println("Expression does not start with an operator");
+			throw new IllegalStateException("Expression does not start with an operator");
 		}
-		return null;
 	}
 	
 	@Override
@@ -52,6 +49,11 @@ public class BasicExpression implements SExpression {
 
 	@Override
 	public String toStringAsSExpression() {
+		throw new UnsupportedOperationException("Not implemented");
+	}
+
+	@Override
+	public String toStringAsSExpressionDeep() {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 }

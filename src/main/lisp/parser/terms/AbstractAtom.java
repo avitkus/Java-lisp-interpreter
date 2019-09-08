@@ -44,4 +44,8 @@ public abstract class AbstractAtom<T> implements Atom<T> {
 	public String toStringAsSExpression() {
 		return token.getValue();
 	}
+	
+	public String toStringAsSExpressionDeep() {
+		return toStringAsSExpression();
+	}
 }

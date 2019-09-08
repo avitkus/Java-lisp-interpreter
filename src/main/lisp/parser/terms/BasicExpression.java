@@ -22,7 +22,9 @@ public class BasicExpression implements SExpression {
 				throw new IllegalStateException("No evaluator registered for operator '" + operator + "'");
 			}
 			return eval.eval(this, environment);
-		} else {
+		} else if (tail instanceof NilAtom) {
+			return head.eval(environment);
+		}else {
 			throw new IllegalStateException("Expression does not start with an operator");
 		}
 	}

@@ -1,8 +1,8 @@
 package main.lisp.parser;
 
 public class ParserFactory {
-	private static final Class<?> defaultParserClass;
-	private static Class<?> parserClass;
+	private static final Class<? extends Parser> defaultParserClass;
+	private static Class<? extends Parser> parserClass;
 	
 	static {
 		defaultParserClass = BasicParser.class;
@@ -11,6 +11,16 @@ public class ParserFactory {
 	
 	public static void setClass(Class<? extends Parser> clazz) {
 		parserClass = clazz;
+	}
+	
+	/**
+	 * This method returns the class currently registered for
+	 * use as the parser
+	 * 
+	 * @return the parser class
+	 */
+	public static Class<? extends Parser> getParserClass() {
+		return parserClass;
 	}
 	
 	public static Parser newInstance() {

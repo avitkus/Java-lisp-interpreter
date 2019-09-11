@@ -40,6 +40,16 @@ public class ExpressionFactory {
 	}
 	
 	/**
+	 * This method returns the class currently registered for
+	 * representing non-atomic s-expressions.
+	 * 
+	 * @return the s-expression class
+	 */
+	public static Class<? extends SExpression> getExpressionClass() {
+		return expressionClass;
+	}
+	
+	/**
 	 * Construct a new S-Expression with the given head and tail.
 	 * 
 	 * @param head head S-Expression

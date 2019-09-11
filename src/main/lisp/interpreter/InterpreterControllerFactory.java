@@ -27,6 +27,16 @@ public class InterpreterControllerFactory {
 	}
 	
 	/**
+	 * This method returns the class currently registered for
+	 * use as the interpreter controller
+	 * 
+	 * @return the controller class
+	 */
+	public static Class<? extends InterpreterController> getControllerClass() {
+		return controllerClass;
+	}
+	
+	/**
 	 * Construct a new lisp interpreter controller.
 	 * 
 	 * @return the interpreter controller

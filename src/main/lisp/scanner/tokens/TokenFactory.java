@@ -79,6 +79,33 @@ public class TokenFactory {
 	}
 	
 	/**
+	 * This method returns the class currently registered for use as
+	 * a default token type.
+	 * 
+	 * @param tokenType the token type
+	 * @return the token class
+	 * @throws IllegalArgumentException if looking up a token for the {@link TokenType#OTHER} type
+	 */
+	public static Class<? extends Token> getTokenClass(TokenType tokenType) {
+		if (tokenType == TokenType.OTHER) {
+			throw new IllegalArgumentException("Non-default tokens are registered with their type, not other");
+		}
+		return tokenTypeMap.get(tokenType.name());
+	}
+
+	
+	/**
+	 * This method returns the class currently registered for use as
+	 * a default token type.
+	 * 
+	 * @param tokenType the token type
+	 * @return the token class or null if not none registered
+	 */
+	public static Class<? extends Token> getTokenClass(String tokenType) {
+		return tokenTypeMap.get(tokenType);
+	}
+	
+	/**
 	 * Creates a new token with the given type and value.
 	 * 
 	 * @param type token type

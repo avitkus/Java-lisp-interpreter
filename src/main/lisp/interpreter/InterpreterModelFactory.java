@@ -26,6 +26,16 @@ public class InterpreterModelFactory {
 	}
 	
 	/**
+	 * This method returns the class currently registered for
+	 * use as the interpreter model
+	 * 
+	 * @return the model class
+	 */
+	public static Class<? extends InterpreterModel> getModelClass() {
+		return modelClass;
+	}
+	
+	/**
 	 * Construct a new lisp interpreter model.
 	 * 
 	 * @return the interpreter model

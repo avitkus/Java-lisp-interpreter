@@ -8,12 +8,12 @@ package main.lisp.interpreter;
  *
  */
 public class InterpreterViewFactory {
-	private static final Class<? extends InterpreterView> defaultControllerClass;
-	private static Class<? extends InterpreterView> controllerClass;
+	private static final Class<? extends InterpreterView> defaultViewClass;
+	private static Class<? extends InterpreterView> viewClass;
 	
 	static {
-		defaultControllerClass = BasicLispInterpreterView.class;
-		controllerClass = defaultControllerClass;
+		defaultViewClass = BasicLispInterpreterView.class;
+		viewClass = defaultViewClass;
 	}
 	
 	/**
@@ -23,7 +23,17 @@ public class InterpreterViewFactory {
 	 * @param clazz new interpreter view class
 	 */
 	public static void setClass(Class<? extends InterpreterView> clazz) {
-		controllerClass = clazz;
+		viewClass = clazz;
+	}
+	
+	/**
+	 * This method returns the class currently registered for
+	 * use as the interpreter view
+	 * 
+	 * @return the view class
+	 */
+	public static Class<? extends InterpreterView> getViewClass() {
+		return viewClass;
 	}
 	
 	/**
@@ -33,11 +43,11 @@ public class InterpreterViewFactory {
 	 */
 	public static InterpreterView newInstance() {
 		try {
-			return (InterpreterView) controllerClass.newInstance();
+			return (InterpreterView) viewClass.newInstance();
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | SecurityException e) {
 			e.printStackTrace();
 			try {
-				return (InterpreterView) defaultControllerClass.newInstance();
+				return (InterpreterView) defaultViewClass.newInstance();
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | SecurityException e1) {
 				e1.printStackTrace();
 				return null;

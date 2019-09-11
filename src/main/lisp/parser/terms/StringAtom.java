@@ -12,6 +12,11 @@ public class StringAtom extends AbstractAtom<String> {
 	public String getValue() {
 		return token.getValue();
 	}
+	
+	@Override
+	public String toString() {
+		return "\"" + getValue() + "\"";
+	}
 
 	@Override
 	public boolean equals(Object o) {

@@ -8,7 +8,7 @@ import main.lisp.scanner.tokens.Token;
 
 /**
  * <p>The {@code Parser} interface provides a standardized method for
- * mapping {@link Token Tokens} to {@link Expression Expressions}.
+ * mapping {@link Token Tokens} to {@link SExpression Expressions}.
  * Expressions are returned one at a time, even if multiple can be
  * created with the current tokens.
  * 

@@ -84,7 +84,7 @@ public class TokenFactory {
 	 * @param type token type
 	 * @param value token value
 	 * @return token
-	 * @throws IllegalArgumentException if registering a token for the {@link TokenType#OTHER} type
+	 * @throws IllegalArgumentException if getting a token for the {@link TokenType#OTHER} type
 	 */
 	public static Token newInstance(TokenType type, String value) {
 		if (type == TokenType.OTHER) {

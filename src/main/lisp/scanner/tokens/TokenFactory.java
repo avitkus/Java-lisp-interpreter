@@ -1,6 +1,8 @@
 package main.lisp.scanner.tokens;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,14 +69,34 @@ public class TokenFactory {
 	 */
 	public static void setTokenClass(String type, Class<? extends Token> clazz) {
 		try {
-			clazz.getConstructor(String.class);
+			Constructor<? extends Token> c = clazz.getDeclaredConstructor(String.class);
+			int modifiers = c.getModifiers();
+			boolean canAccess = false;
+			if ((modifiers & Modifier.PUBLIC) != 0) {
+				canAccess = true;
+			} else if ((modifiers & Modifier.PROTECTED) != 0) {
+				if (c.getDeclaringClass().getPackage().equals(TokenFactory.class.getPackage())) {
+					canAccess = true;
+				}
+			}
+			if (!canAccess) {
+				throw new IllegalArgumentException("Specified '" + type + "' token class' constructor is not accessible by the factory (is it private?)");
+			}
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Specified '" + type + "' token does not have requried constructor with arguments (String)", e);
+//			e.printStackTrace();
+			throw new IllegalArgumentException("Specified '" + type + "' token class must have a contructor with arguments (String)", e);
 		} catch (SecurityException e) {
 			e.printStackTrace();
-			return;
 		}
+//		try {
+//			clazz.getConstructor(String.class);
+//		} catch (NoSuchMethodException e) {
+//			e.printStackTrace();
+//			throw new IllegalArgumentException("Specified '" + type + "' token does not have requried constructor with arguments (String)", e);
+//		} catch (SecurityException e) {
+//			e.printStackTrace();
+//			return;
+//		}
 		tokenTypeMap.put(type, clazz);
 	}
 	
@@ -118,11 +140,11 @@ public class TokenFactory {
 			throw new IllegalArgumentException("Other is not a valid token type");
 		}
 		try {
-			return (Token) tokenTypeMap.get(type.name()).getConstructor(String.class).newInstance(value);
+			return (Token) tokenTypeMap.get(type.name()).getDeclaredConstructor(String.class).newInstance(value);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 			try {
-				return (Token) defaultTokenTypeMap.get(type.name()).getConstructor(String.class).newInstance(value);
+				return (Token) defaultTokenTypeMap.get(type.name()).getDeclaredConstructor(String.class).newInstance(value);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e1) {
 				e1.printStackTrace();
 				return null;
@@ -143,12 +165,12 @@ public class TokenFactory {
 			if (!tokenTypeMap.containsKey(type)) {
 				throw new IllegalArgumentException("No class registered for token '" + type + "'");
 			}
-			return (Token) tokenTypeMap.get(type).getConstructor(String.class).newInstance(value);
+			return (Token) tokenTypeMap.get(type).getDeclaredConstructor(String.class).newInstance(value);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 			try {
 				if (defaultTokenTypeMap.containsKey(value)) {
-					return (Token) defaultTokenTypeMap.get(type).getConstructor(String.class).newInstance(value);
+					return (Token) defaultTokenTypeMap.get(type).getDeclaredConstructor(String.class).newInstance(value);
 				} else {
 					return null;
 				}

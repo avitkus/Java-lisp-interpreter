@@ -1,5 +1,7 @@
 package main.lisp.evaluator;
 
+import java.util.Map;
+
 /**
  * The {@code OperationManager} interface provides a set method for
  * registering and looking up the {@link Evaluator} instances for
@@ -25,4 +27,6 @@ public interface OperationManager {
 	 *         {@code null} if not
 	 */
 	public Evaluator getEvaluator(String name);
+	
+	public Map<String, Evaluator> getEvaluators();
 }

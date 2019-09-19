@@ -1,5 +1,8 @@
 package main.lisp.interpreter;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 /**
  * This class allows for the class used to implement the interpreter's model
  * per MVC to be changed.
@@ -22,6 +25,26 @@ public class InterpreterModelFactory {
 	 * @param clazz new interpreter model class
 	 */
 	public static void setClass(Class<? extends InterpreterModel> clazz) {
+		try {
+			Constructor<? extends InterpreterModel> c = clazz.getDeclaredConstructor();
+			int modifiers = c.getModifiers();
+			boolean canAccess = false;
+			if ((modifiers & Modifier.PUBLIC) != 0) {
+				canAccess = true;
+			} else if ((modifiers & Modifier.PROTECTED) != 0) {
+				if (c.getDeclaringClass().getPackage().equals(InterpreterModelFactory.class.getPackage())) {
+					canAccess = true;
+				}
+			}
+			if (!canAccess) {
+				throw new IllegalArgumentException("Interpreter model class' constructor is not accessible by the factory (is it private?)");
+			}
+		} catch (NoSuchMethodException e) {
+//			e.printStackTrace();
+			throw new IllegalArgumentException("Interpreter model class must have a contructor with no arguments", e);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
 		modelClass = clazz;
 	}
 	

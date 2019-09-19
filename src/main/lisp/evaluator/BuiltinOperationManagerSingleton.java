@@ -1,5 +1,8 @@
 package main.lisp.evaluator;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 /**
  * The {@code BuiltinOperationManagerSingleton} class provides access
  * to a single point accessing an {@link OperationMangager} for
@@ -30,6 +33,26 @@ public class BuiltinOperationManagerSingleton {
 	public static void setClass(Class<? extends OperationManager> clazz) {
 		if (builtinOperationManager != null) {
 			throw new UnsupportedOperationException("Cannot change built-in operation manager class after instantiation");
+		}
+		try {
+			Constructor<? extends OperationManager> c = clazz.getDeclaredConstructor();
+			int modifiers = c.getModifiers();
+			boolean canAccess = false;
+			if ((modifiers & Modifier.PUBLIC) != 0) {
+				canAccess = true;
+			} else if ((modifiers & Modifier.PROTECTED) != 0) {
+				if (c.getDeclaringClass().getPackage().equals(BuiltinOperationManagerSingleton.class.getPackage())) {
+					canAccess = true;
+				}
+			}
+			if (!canAccess) {
+				throw new IllegalArgumentException("Built-in operation manager class' constructor is not accessible by the factory (is it private?)");
+			}
+		} catch (NoSuchMethodException e) {
+//			e.printStackTrace();
+			throw new IllegalArgumentException("Built-in operation manager class must have a contructor with no arguments", e);
+		} catch (SecurityException e) {
+			e.printStackTrace();
 		}
 		operationManagerClass = clazz;
 	}

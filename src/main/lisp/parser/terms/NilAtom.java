@@ -11,7 +11,7 @@ public class NilAtom extends AbstractAtom<String> {
 
 	@Override
 	public String getValue() {
-		return "nil";
+		return "NIL";
 	}
 	
 	@Override

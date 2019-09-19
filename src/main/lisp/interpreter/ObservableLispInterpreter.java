@@ -31,7 +31,7 @@ public class ObservableLispInterpreter implements InterpreterModel {
 	public static final String EXPRESSION_PROPERTY = "expresssion";
 	public static final String RESULT_PROPERTY = "result";
 	
-	public ObservableLispInterpreter() {
+	protected ObservableLispInterpreter() {
 		scanner = ScannerFactory.newInstance();
 		parser = ParserFactory.newInstance();
 		listeners = new ArrayList<>();

@@ -1,6 +1,8 @@
 package main.lisp.parser.terms;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 
 /**
  * This class allows for the class used to represent S-Expressions in the interpreter
@@ -28,14 +30,34 @@ public class ExpressionFactory {
 	 */
 	public static void setClass(Class<? extends SExpression> clazz) {
 		try {
-			clazz.getConstructor(SExpression.class, SExpression.class);
+			Constructor<? extends SExpression> c = clazz.getDeclaredConstructor(SExpression.class, SExpression.class);
+			int modifiers = c.getModifiers();
+			boolean canAccess = false;
+			if ((modifiers & Modifier.PUBLIC) != 0) {
+				canAccess = true;
+			} else if ((modifiers & Modifier.PROTECTED) != 0) {
+				if (c.getDeclaringClass().getPackage().equals(ExpressionFactory.class.getPackage())) {
+					canAccess = true;
+				}
+			}
+			if (!canAccess) {
+				throw new IllegalArgumentException("S-expression class' constructor is not accessible by the factory (is it private?)");
+			}
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Specified S-Expression class does not have requried constructor with arguments (SExpression, SExpression)", e);
+//			e.printStackTrace();
+			throw new IllegalArgumentException("S-expression class must have a contructor with arguments (SExpression, SExpression)", e);
 		} catch (SecurityException e) {
 			e.printStackTrace();
-			return;
 		}
+//		try {
+//			clazz.getConstructor(SExpression.class, SExpression.class);
+//		} catch (NoSuchMethodException e) {
+//			e.printStackTrace();
+//			throw new IllegalArgumentException("Specified S-Expression class does not have requried constructor with arguments (SExpression, SExpression)", e);
+//		} catch (SecurityException e) {
+//			e.printStackTrace();
+//			return;
+//		}
 		expressionClass = clazz;
 	}
 	
@@ -58,11 +80,11 @@ public class ExpressionFactory {
 	 */
 	public static SExpression newInstance(SExpression head, SExpression tail) {
 		try {
-			return (SExpression) expressionClass.getConstructor(SExpression.class, SExpression.class).newInstance(head, tail);
+			return (SExpression) expressionClass.getDeclaredConstructor(SExpression.class, SExpression.class).newInstance(head, tail);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 			try {
-				return (SExpression) defaultExpressionClass.getConstructor(SExpression.class, SExpression.class).newInstance(head, tail);
+				return (SExpression) defaultExpressionClass.getDeclaredConstructor(SExpression.class, SExpression.class).newInstance(head, tail);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e1) {
 				e1.printStackTrace();
 				return null;

@@ -2,7 +2,7 @@ package main.lisp.scanner.tokens;
 
 public class QuoteToken extends AbstractToken {
 
-	public QuoteToken(String value) {
+	protected QuoteToken(String value) {
 		super("'", TokenType.QUOTE);
 	}
 

@@ -3,6 +3,8 @@ package main.lisp.interpreter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
+import util.trace.Tracer;
+
 /**
  * This class allows for the class used to implement the interpreter's view
  * per MVC to be changed.
@@ -65,16 +67,18 @@ public class InterpreterViewFactory {
 	 * @return the interpreter view
 	 */
 	public static InterpreterView newInstance() {
+		InterpreterView ret = null;
 		try {
-			return (InterpreterView) viewClass.newInstance();
+			ret = (InterpreterView) viewClass.newInstance();
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | SecurityException e) {
 			e.printStackTrace();
 			try {
-				return (InterpreterView) defaultViewClass.newInstance();
+				ret = (InterpreterView) defaultViewClass.newInstance();
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | SecurityException e1) {
 				e1.printStackTrace();
-				return null;
 			}
 		}
+		Tracer.info(InterpreterViewFactory.class, "New interpreter view: " + ret);
+		return ret;
 	}
 }

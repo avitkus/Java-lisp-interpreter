@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
+import util.trace.Tracer;
+
 /**
  * This class allows for the class used to represent S-Expressions in the interpreter
  * to be changed.
@@ -79,16 +81,18 @@ public class ExpressionFactory {
 	 * @return the combined S-Expression
 	 */
 	public static SExpression newInstance(SExpression head, SExpression tail) {
+		SExpression ret = null;
 		try {
-			return (SExpression) expressionClass.getDeclaredConstructor(SExpression.class, SExpression.class).newInstance(head, tail);
+			ret = (SExpression) expressionClass.getDeclaredConstructor(SExpression.class, SExpression.class).newInstance(head, tail);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 			try {
-				return (SExpression) defaultExpressionClass.getDeclaredConstructor(SExpression.class, SExpression.class).newInstance(head, tail);
+				ret = (SExpression) defaultExpressionClass.getDeclaredConstructor(SExpression.class, SExpression.class).newInstance(head, tail);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e1) {
 				e1.printStackTrace();
-				return null;
 			}
 		}
+		Tracer.info(ExpressionFactory.class, "New s-expression: " + ret);
+		return ret;
 	}
 }

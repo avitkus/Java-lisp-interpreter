@@ -6,6 +6,8 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
+import util.trace.Tracer;
+
 /**
  * This class allows the classes used to represent the default tokens to be
  * replaced and new tokens added.
@@ -136,20 +138,23 @@ public class TokenFactory {
 	 * @throws IllegalArgumentException if getting a token for the {@link TokenType#OTHER} type
 	 */
 	public static Token newInstance(TokenType type, String value) {
+		Token ret = null;
 		if (type == TokenType.OTHER) {
 			throw new IllegalArgumentException("Other is not a valid token type");
 		}
 		try {
-			return (Token) tokenTypeMap.get(type.name()).getDeclaredConstructor(String.class).newInstance(value);
+			ret = (Token) tokenTypeMap.get(type.name()).getDeclaredConstructor(String.class).newInstance(value);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 			try {
-				return (Token) defaultTokenTypeMap.get(type.name()).getDeclaredConstructor(String.class).newInstance(value);
+				ret = (Token) defaultTokenTypeMap.get(type.name()).getDeclaredConstructor(String.class).newInstance(value);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e1) {
 				e1.printStackTrace();
-				return null;
 			}
 		}
+
+		Tracer.info(TokenFactory.class, "New '" + type.name() + "' token: " + ret);
+		return ret;
 	}
 	
 	/**
@@ -161,23 +166,23 @@ public class TokenFactory {
 	 * @throws IllegalArgumentException if no class is registered for this token type
 	 */
 	public static Token newInstance(String type, String value) {
+		Token ret = null;
 		try {
 			if (!tokenTypeMap.containsKey(type)) {
 				throw new IllegalArgumentException("No class registered for token '" + type + "'");
 			}
-			return (Token) tokenTypeMap.get(type).getDeclaredConstructor(String.class).newInstance(value);
+			ret = (Token) tokenTypeMap.get(type).getDeclaredConstructor(String.class).newInstance(value);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 			try {
 				if (defaultTokenTypeMap.containsKey(value)) {
-					return (Token) defaultTokenTypeMap.get(type).getDeclaredConstructor(String.class).newInstance(value);
-				} else {
-					return null;
+					ret = (Token) defaultTokenTypeMap.get(type).getDeclaredConstructor(String.class).newInstance(value);
 				}
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e1) {
 				e1.printStackTrace();
-				return null;
 			}
 		}
+		Tracer.info(TokenFactory.class, "New '" + type + "' token: " + ret);
+		return ret;
 	}
 }

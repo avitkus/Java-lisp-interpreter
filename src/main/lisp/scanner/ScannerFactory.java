@@ -3,6 +3,8 @@ package main.lisp.scanner;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
+import util.trace.Tracer;
+
 public class ScannerFactory {
 	private static final Class<? extends Scanner> defaultScannerClass;
 	private static Class<? extends Scanner> scannerClass;
@@ -47,16 +49,18 @@ public class ScannerFactory {
 	}
 	
 	public static Scanner newInstance() {
+		Scanner ret = null;
 		try {
-			return (Scanner) scannerClass.newInstance();
+			ret = (Scanner) scannerClass.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 			try {
-				return (Scanner) defaultScannerClass.newInstance();
+				ret = (Scanner) defaultScannerClass.newInstance();
 			} catch (InstantiationException | IllegalAccessException e1) {
 				e1.printStackTrace();
-				return null;
 			}
 		}
+		Tracer.info(ScannerFactory.class, "New scanner: " + ret);
+		return ret;
 	}
 }

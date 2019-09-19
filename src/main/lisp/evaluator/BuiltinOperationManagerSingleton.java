@@ -3,6 +3,8 @@ package main.lisp.evaluator;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
+import util.trace.Tracer;
+
 /**
  * The {@code BuiltinOperationManagerSingleton} class provides access
  * to a single point accessing an {@link OperationMangager} for
@@ -82,5 +84,6 @@ public class BuiltinOperationManagerSingleton {
 				builtinOperationManager = null;
 			}
 		}
+		Tracer.info(BuiltinOperationManagerSingleton.class, "New built-in operation manager: " + builtinOperationManager);
 	}
 }

@@ -3,6 +3,8 @@ package main.lisp.parser;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
+import util.trace.Tracer;
+
 public class ParserFactory {
 	private static final Class<? extends Parser> defaultParserClass;
 	private static Class<? extends Parser> parserClass;
@@ -47,16 +49,18 @@ public class ParserFactory {
 	}
 	
 	public static Parser newInstance() {
+		Parser ret = null;
 		try {
-			return (Parser) parserClass.newInstance();
+			ret = (Parser) parserClass.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 			try {
-				return (Parser) defaultParserClass.newInstance();
+				ret = (Parser) defaultParserClass.newInstance();
 			} catch (InstantiationException | IllegalAccessException e1) {
 				e1.printStackTrace();
-				return null;
 			}
 		}
+		Tracer.info(ParserFactory.class, "New parser: " + ret);
+		return ret;
 	}
 }

@@ -3,6 +3,7 @@ package main.lisp.parser.terms;
 import main.lisp.evaluator.BuiltinOperationManagerSingleton;
 import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
+import util.trace.Tracer;
 
 public class BasicExpression extends AbstractSExpression {
 	private final SExpression head;
@@ -11,6 +12,8 @@ public class BasicExpression extends AbstractSExpression {
 	protected BasicExpression(SExpression head, SExpression tail) {
 		this.head = head;
 		this.tail = tail;
+		
+		Tracer.info(this, this.getClass().getSimpleName() + "(" + head + ", " + tail + ")");
 	}
 	
 	@Override

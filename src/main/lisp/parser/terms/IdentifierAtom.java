@@ -18,13 +18,4 @@ public class IdentifierAtom extends AbstractAtom<String> {
 	public String getValue() {
 		return token.getValue();
 	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof IdentifierAtom)) {
-			return false;
-		}
-		IdentifierAtom t = (IdentifierAtom)o;
-		return t.getValue().equals(getValue());
-	}
 }

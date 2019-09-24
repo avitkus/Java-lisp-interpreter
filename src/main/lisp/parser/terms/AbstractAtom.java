@@ -9,6 +9,11 @@ public abstract class AbstractAtom<T> extends AbstractSExpression implements Ato
 	
 	public AbstractAtom(Token token) {
 		this.token = token;
+		traceConstruction();
+	}
+	
+	protected void traceConstruction() {
+		Tracer.info(this, this.getClass().getSimpleName() + "(" + token + ")");
 	}
 	
 	@Override
@@ -49,5 +54,18 @@ public abstract class AbstractAtom<T> extends AbstractSExpression implements Ato
 	
 	public String toStringAsSExpressionDeep() {
 		return toStringAsSExpression();
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Atom<?>)) {
+			return false;
+		} else {
+			if (!o.getClass().equals(this.getClass())) {
+				return false;
+			} else {
+				return ((Atom<?>)o).getValue().equals(getValue());
+			}
+		}
 	}
 }

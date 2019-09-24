@@ -7,7 +7,7 @@ import java.util.Queue;
 
 import main.lisp.parser.terms.DecimalAtom;
 import main.lisp.parser.terms.ExpressionFactory;
-import main.lisp.parser.terms.IdentifierAtom;
+import main.lisp.parser.terms.IdentifierAtomFactory;
 import main.lisp.parser.terms.IntegerAtom;
 import main.lisp.parser.terms.NilAtom;
 import main.lisp.parser.terms.QuoteAtom;
@@ -109,11 +109,11 @@ public class BasicParser implements Parser {
 			} else if (cur.getValue().equalsIgnoreCase("t")) {
 				ret = new TAtom();
 			} else {
-				ret = new IdentifierAtom(cur);
+				ret = IdentifierAtomFactory.newInstance(cur);
 			}
 			break;
 		default:
-			ret = new IdentifierAtom(cur);
+			ret = IdentifierAtomFactory.newInstance(cur);
 		}
 		
 		return ret;

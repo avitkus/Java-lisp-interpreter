@@ -1,5 +1,7 @@
-package main.lisp.evaluator;
+package main.lisp.evaluator.environment;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import main.lisp.evaluator.environment.Scope;
@@ -18,15 +20,15 @@ import main.lisp.parser.terms.SExpression;
  * @author Andrew Vitkus
  *
  */
-public interface Environment extends Scope{
-	
+public interface Scope {
+
 	/**
 	 * Looks up the given identifier in the current environment stack
 	 * 
 	 * @param id the identifier
 	 * @return the value if defined or empty
 	 */
-	public Optional<SExpression> lookup(IdentifierAtom id);
+	public Optional<SExpression> get(IdentifierAtom id);
 	
 	/**
 	 * Looks up the function value for the given identifier in
@@ -35,32 +37,31 @@ public interface Environment extends Scope{
 	 * @param id the identifier
 	 * @return the value if defined or empty
 	 */
-	public Optional<Function> lookupFun(IdentifierAtom id);
-
+	public Optional<Function> getFun(IdentifierAtom id);
+	
 	/**
-	 * Reassigns a variable
+	 * Adds a variable binding in this environment level
 	 * 
 	 * @param id the identifier
 	 * @param value the value
 	 */
-	public void assign(IdentifierAtom id, SExpression value);
+	public void put(IdentifierAtom id, SExpression value);
 
 	/**
-	 * Assigns a global function definition
+	 * Adds a function binding in this environment level
 	 * 
 	 * @param id the identifier
 	 * @param value the function value
 	 */
-	public void assignFun(IdentifierAtom id, Function value);
+	public void putFun(IdentifierAtom id, Function value);
 	
-	/**
-	 * Creates a new environment level over the current
-	 * 
-	 * @return the new environment
-	 */
-	public Environment newChild();
+	public void makeNameSpecial(IdentifierAtom id);
+	public void makeLocalSpecial(IdentifierAtom id);
 	
-	public Environment getParent();
+	public boolean isSpecial(IdentifierAtom id);
 	
-	public Environment copy();
+	public Map<String, SExpression> getValueMap();
+	public Map<String, Function> getFunctionMap();
+	public List<String> getSpecialNames();
+	public List<String> getLocalSpecialNames();
 }

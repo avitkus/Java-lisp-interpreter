@@ -20,6 +20,14 @@ public interface OperationManager {
 	public void registerEvaluator(String name, Evaluator evaluator);
 	
 	/**
+	 * Removes the evaluator for a given operation
+	 * 
+	 * @param name operation name
+	 * @return if an operation was removed
+	 */
+	public boolean removeEvaluator(String name);
+	
+	/**
 	 * Looks up the evaluator for a given operation
 	 * 
 	 * @param name operation name

@@ -15,8 +15,8 @@ public class ConcatenateEvaluator implements Evaluator {
 	@Override
 	public SExpression eval(SExpression expr, Environment environment) {
 		expr = expr.getTail();
-		if (expr instanceof NilAtom || expr.getTail() instanceof NilAtom) {
-			throw new IllegalStateException("Missing arguments for operator 'concatenate'");
+		if (expr instanceof NilAtom) {
+			return processString(expr, environment);
 		}
 		
 		SExpression arg1 = expr.getHead().eval(environment);
@@ -35,22 +35,18 @@ public class ConcatenateEvaluator implements Evaluator {
 	}
 	
 	private SExpression processString(SExpression base, Environment environment) {
-		if (base instanceof NilAtom || base.getTail() instanceof NilAtom) {
-			throw new IllegalStateException("Missing arguments for operator 'concatenate'");
-		}
-		if (!(base.getTail().getTail() instanceof NilAtom)) {
-			throw new IllegalStateException("Too many arguments for operator 'concatenate'");
-		}
-		SExpression str1Atom = base.getHead().eval(environment);
-		SExpression str2Atom = base.getTail().getHead().eval(environment);
-		if (!(str1Atom instanceof StringAtom) || !(str2Atom instanceof StringAtom)) {
-			throw new IllegalStateException("Arguments for operator 'concatenate' must be (quote type) a1 a2 or String String");
-		}
-
-		String str1 = ((StringAtom)str1Atom).getValue();
-		String str2 = ((StringAtom)str2Atom).getValue();
+		StringBuilder sb = new StringBuilder();
 		
-		StringToken tok = (StringToken)TokenFactory.newInstance(TokenType.STRING, str1+str2);
+		while (!(base instanceof NilAtom)){
+			SExpression strAtom = base.getHead().eval(environment);
+			if (!(strAtom instanceof StringAtom)) {
+				throw new IllegalStateException("Arguments for operator 'concatenate' must be (quote type) arg ... or String ...");
+			}
+			sb.append(((StringAtom)strAtom).getValue());
+			base = base.getTail();
+		}
+		
+		StringToken tok = (StringToken)TokenFactory.newInstance(TokenType.STRING, sb.toString());
 		
 		return new StringAtom(tok);
 	}

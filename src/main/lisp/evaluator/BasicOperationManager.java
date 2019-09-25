@@ -28,4 +28,9 @@ public class BasicOperationManager implements OperationManager {
 	public Map<String, Evaluator> getEvaluators() {
 		return Collections.unmodifiableMap(evaluatorMap);
 	}
+
+	@Override
+	public boolean removeEvaluator(String name) {
+		return evaluatorMap.remove(name) != null;
+	}
 }

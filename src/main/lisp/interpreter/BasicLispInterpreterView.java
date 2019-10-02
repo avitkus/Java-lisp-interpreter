@@ -16,15 +16,18 @@ import main.lisp.scanner.tokens.Token;
  */
 public class BasicLispInterpreterView implements InterpreterView {
 	
+	protected BasicLispInterpreterView() { }
+	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		switch(evt.getPropertyName()) {
 		case ObservableLispInterpreter.TOKEN_PROPERTY:
 			Token t = (Token)evt.getNewValue();
+//			System.out.println(t);
 			break;
 		case ObservableLispInterpreter.EXPRESSION_PROPERTY:
 			SExpression raw = (SExpression)evt.getNewValue();
-			System.out.println(raw);
+//			System.out.println(raw);
 			break;
 		case ObservableLispInterpreter.RESULT_PROPERTY:
 			SExpression evaled = (SExpression)evt.getNewValue();

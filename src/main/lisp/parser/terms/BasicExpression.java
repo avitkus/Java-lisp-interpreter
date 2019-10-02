@@ -1,16 +1,19 @@
 package main.lisp.parser.terms;
 
-import main.lisp.evaluator.Evaluator;
 import main.lisp.evaluator.BuiltinOperationManagerSingleton;
 import main.lisp.evaluator.Environment;
+import main.lisp.evaluator.Evaluator;
+import util.trace.Tracer;
 
-public class BasicExpression implements SExpression {
+public class BasicExpression extends AbstractSExpression {
 	private final SExpression head;
 	private final SExpression tail;
 	
-	public BasicExpression(SExpression head, SExpression tail) {
+	protected BasicExpression(SExpression head, SExpression tail) {
 		this.head = head;
 		this.tail = tail;
+		
+		Tracer.info(this, this.getClass().getSimpleName() + "(" + head + ", " + tail + ")");
 	}
 	
 	@Override
@@ -22,9 +25,7 @@ public class BasicExpression implements SExpression {
 				throw new IllegalStateException("No evaluator registered for operator '" + operator + "'");
 			}
 			return eval.eval(this, environment);
-		} else if (tail instanceof NilAtom) {
-			return head.eval(environment);
-		}else {
+		} else {
 			throw new IllegalStateException("Expression does not start with an operator");
 		}
 	}

@@ -17,10 +17,8 @@ import java.util.Scanner;
 public class BasicLispInterpreterController implements InterpreterController {
 	private InterpreterModel interpreter;
 	
-//	public BasicLispInterpreterController(ObservableLispInterpreter interpreter) {
-//		this.interpreter = interpreter;
-//	}
-//	
+	protected BasicLispInterpreterController() { }
+	
 	public void run() {
 		if (interpreter == null) {
 			throw new IllegalStateException("No interpeter model set when running controller");

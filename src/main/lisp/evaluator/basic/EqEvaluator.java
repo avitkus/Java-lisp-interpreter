@@ -13,8 +13,10 @@ public class EqEvaluator implements Evaluator {
 		expr = expr.getTail();
 		
 		if (expr instanceof NilAtom || expr.getTail() instanceof NilAtom) {
-//			System.err.println("Missing arguments for operator 'eq'");
 			throw new IllegalStateException("Missing arguments for operator 'eq'");
+		}
+		if (!(expr.getTail().getTail() instanceof NilAtom)) {
+			throw new IllegalStateException("Too many arguments for operator 'eq'");
 		}
 		SExpression firstExpr = expr.getHead();
 		SExpression secondExpr = expr.getTail().getHead();

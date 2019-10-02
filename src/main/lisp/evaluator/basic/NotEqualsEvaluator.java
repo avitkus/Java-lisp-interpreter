@@ -3,10 +3,10 @@ package main.lisp.evaluator.basic;
 import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
 import main.lisp.parser.terms.DecimalAtom;
-import main.lisp.parser.terms.SExpression;
-import main.lisp.parser.terms.TAtom;
 import main.lisp.parser.terms.IntegerAtom;
 import main.lisp.parser.terms.NilAtom;
+import main.lisp.parser.terms.SExpression;
+import main.lisp.parser.terms.TAtom;
 
 public class NotEqualsEvaluator implements Evaluator {
 
@@ -14,12 +14,14 @@ public class NotEqualsEvaluator implements Evaluator {
 	public SExpression eval(SExpression expr, Environment environment) {
 		expr = expr.getTail();
 		if (expr instanceof NilAtom || expr.getHead() instanceof NilAtom || expr.getTail() instanceof NilAtom) {
-//			System.err.println("Missing arguments for operator '/='");
 			throw new IllegalStateException("Missing arguments for operator '/='");
+		}
+		if (!(expr.getTail().getTail() instanceof NilAtom)) {
+			throw new IllegalStateException("Too many arguments for operator '/='");
 		}
 		
 		SExpression firstEvaled = expr.getHead().eval(environment);
-		SExpression secondEvaled = expr.getTail().eval(environment);
+		SExpression secondEvaled = expr.getTail().getHead().eval(environment);
 		
 		IntegerAtom firstInt = null;
 		IntegerAtom secondInt = null;
@@ -47,7 +49,6 @@ public class NotEqualsEvaluator implements Evaluator {
 		}
 		
 		if (correctArgs != 2) {
-//			System.err.println("Arguments for operator '/=' must both evaluate to numbers");
 			throw new IllegalStateException("Arguments for operator '/=' must both evaluate to numbers");
 		}
 		

@@ -2,7 +2,7 @@ package main.lisp.scanner.tokens;
 
 public class OpenToken extends AbstractToken {
 
-	public OpenToken(String value) {
+	protected OpenToken(String value) {
 		super("(", TokenType.OPEN);
 	}
 

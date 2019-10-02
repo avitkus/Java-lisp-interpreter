@@ -11,7 +11,7 @@ import main.lisp.scanner.tokens.TokenType;
 public class BasicScanner implements Scanner {
 	private Queue<Token> tokens;
 	
-	public BasicScanner() {
+	protected BasicScanner() {
 		tokens = new LinkedList<>();
 	}
 	

@@ -2,7 +2,7 @@ package main.lisp.scanner.tokens;
 
 public class CloseToken extends AbstractToken {
 
-	public CloseToken(String value) {
+	protected CloseToken(String value) {
 		super(")", TokenType.CLOSE);
 	}
 

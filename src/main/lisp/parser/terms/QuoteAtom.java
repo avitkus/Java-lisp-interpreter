@@ -16,6 +16,21 @@ public class QuoteAtom extends AbstractAtom<String> {
 	public SExpression eval(Environment environment) {
 		return expr;
 	}
+	
+	@Override
+	public String toStringAsList() {
+		return toString();
+	}
+	
+	@Override
+	public String toStringAsSExpression() {
+		return "";
+	}
+	
+	@Override
+	public String toStringAsSExpressionDeep() {
+		return "(quote . " + expr.toStringAsSExpressionDeep() + ")";
+	}
 
 	@Override
 	public String toString() {

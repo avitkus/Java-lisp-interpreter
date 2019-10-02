@@ -2,9 +2,9 @@ package main.lisp.evaluator.basic;
 
 import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
-import main.lisp.parser.terms.SExpression;
 import main.lisp.parser.terms.IdentifierAtom;
 import main.lisp.parser.terms.NilAtom;
+import main.lisp.parser.terms.SExpression;
 
 public class NullEvaluator implements Evaluator {
 
@@ -13,11 +13,13 @@ public class NullEvaluator implements Evaluator {
 		expr = expr.getTail();
 
 		if (expr instanceof NilAtom) {
-//			System.err.println("Missing arguments for operator 'null'");
 			throw new IllegalStateException("Missing arguments for operator 'null'");
 		}
+		if (!(expr.getTail() instanceof NilAtom)) {
+			throw new IllegalStateException("Too many arguments for operator 'null'");
+		}
 		
-		SExpression firstEvaled = expr.eval(environment);
+		SExpression firstEvaled = expr.getHead().eval(environment);
 		
 		if (firstEvaled instanceof NilAtom) {
 			return new IdentifierAtom("T");

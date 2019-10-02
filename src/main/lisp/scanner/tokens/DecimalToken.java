@@ -2,7 +2,7 @@ package main.lisp.scanner.tokens;
 
 public class DecimalToken extends AbstractToken {
 	
-	public DecimalToken(String value) {
+	protected DecimalToken(String value) {
 		super(value, TokenType.DECIMAL);
 	}
 

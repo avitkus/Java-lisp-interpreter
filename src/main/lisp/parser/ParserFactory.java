@@ -1,5 +1,10 @@
 package main.lisp.parser;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
+import util.trace.Tracer;
+
 public class ParserFactory {
 	private static final Class<? extends Parser> defaultParserClass;
 	private static Class<? extends Parser> parserClass;
@@ -10,6 +15,26 @@ public class ParserFactory {
 	}
 	
 	public static void setClass(Class<? extends Parser> clazz) {
+		try {
+			Constructor<? extends Parser> c = clazz.getDeclaredConstructor();
+			int modifiers = c.getModifiers();
+			boolean canAccess = false;
+			if ((modifiers & Modifier.PUBLIC) != 0) {
+				canAccess = true;
+			} else if ((modifiers & Modifier.PROTECTED) != 0) {
+				if (c.getDeclaringClass().getPackage().equals(ParserFactory.class.getPackage())) {
+					canAccess = true;
+				}
+			}
+			if (!canAccess) {
+				throw new IllegalArgumentException("Parser class' constructor is not accessible by the factory (is it private?)");
+			}
+		} catch (NoSuchMethodException e) {
+//			e.printStackTrace();
+			throw new IllegalArgumentException("Parser class must have a contructor with no arguments", e);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
 		parserClass = clazz;
 	}
 	
@@ -24,16 +49,18 @@ public class ParserFactory {
 	}
 	
 	public static Parser newInstance() {
+		Parser ret = null;
 		try {
-			return (Parser) parserClass.newInstance();
+			ret = (Parser) parserClass.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 			try {
-				return (Parser) defaultParserClass.newInstance();
+				ret = (Parser) defaultParserClass.newInstance();
 			} catch (InstantiationException | IllegalAccessException e1) {
 				e1.printStackTrace();
-				return null;
 			}
 		}
+		Tracer.info(ParserFactory.class, "New parser: " + ret);
+		return ret;
 	}
 }

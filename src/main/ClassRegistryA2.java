@@ -16,15 +16,15 @@ import main.lisp.parser.terms.SExpression;
 public interface ClassRegistryA2 extends ClassRegistry {
 	
 	/**
-	 * Returns a class that can be used to load the variable and function
+	 * Returns a class that can be used to load the variable and lambda
 	 * related operation evaluators evaluators.
 	 * 
 	 * @return operation registerer class
 	 */
-	public Class<? extends OperationRegisterer> getAdditionalStatefulOperationRegisterer();
+	public Class<? extends OperationRegisterer> getStatefulOperationRegisterer();
 	
 	/**
-	 * Returns an implementation of an S-Expression that calls functions and lambdas.
+	 * Returns an implementation of an S-Expression that calls lambdas.
 	 * 
 	 * @return S-Expression class
 	 */
@@ -46,25 +46,13 @@ public interface ClassRegistryA2 extends ClassRegistry {
 	public Class<? extends Environment> getNestedLexicalEnvironment();
 
 	/**
-	 * Gets the class implementing the "defun" operation's evaluator
-	 * 
-	 * @return defun evaluator class
-	 */
-	public Class<? extends Evaluator> getDefunEvaluator();
-
-	/**
-	 * Gets the class implementing the "funcall" operation's evaluator
+	 * Gets the class implementing the "funcall" operation's evaluator.
+	 * This version only needs to handle direct lambdas and variables
+	 * with lambda value.
 	 * 
 	 * @return funcall evaluator class
 	 */
-	public Class<? extends Evaluator> getFuncallEvaluator();
-
-	/**
-	 * Gets the class implementing the "function" operation's evaluator
-	 * 
-	 * @return function evaluator class
-	 */
-	public Class<? extends Evaluator> getFunctionEvaluator();
+	public Class<? extends Evaluator> getBasicFuncallEvaluator();
 
 	/**
 	 * Gets the class implementing the "lambda" operation's evaluator

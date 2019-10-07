@@ -17,7 +17,7 @@ public class EnvironmentFactory {
 	private static Class<? extends Environment> environmentClass;
 	
 	static {
-		defaultEnvironmentClass = AbstractEnvironment.class;
+		defaultEnvironmentClass = NullEnvironment.class;
 		environmentClass = defaultEnvironmentClass;
 	}
 

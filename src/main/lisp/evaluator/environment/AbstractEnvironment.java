@@ -8,6 +8,7 @@ import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.function.Function;
 import main.lisp.parser.terms.IdentifierAtom;
 import main.lisp.parser.terms.SExpression;
+import util.trace.Tracer;
 
 public abstract class AbstractEnvironment implements Environment {
 	
@@ -31,26 +32,33 @@ public abstract class AbstractEnvironment implements Environment {
 	protected AbstractEnvironment(Environment parent, CopyableScope scope) {
 		this.scope = scope;
 		this.parent = parent;
+		Tracer.info(AbstractEnvironment.class, "New environment \nparent =\n" + parent + (parent == null ? "\n" : "") +"local scope = \n" + scope);
 	}
 	
 	@Override
 	public void put(IdentifierAtom id, SExpression value) {
 		scope.put(id, value);
+		Tracer.info(this, "Variable '" + id + "' set to '" + value + "' in environment:\n" + this);
 	}
 
 	@Override
 	public void putFun(IdentifierAtom id, Function value) {
 		scope.putFun(id, value);
+		Tracer.info(this, "Function '" + id + "' set to '" + value + "' in environment:\n" + this);
 	}
 
 	@Override
 	public void makeNameSpecial(IdentifierAtom id) {
+		String idValue = id.getValue();
 		scope.makeNameSpecial(id);
+		Tracer.info(this, "Name '" + idValue + "' marked dynamic");
 	}
 
 	@Override
 	public void makeLocalSpecial(IdentifierAtom id) {
+		String idValue = id.getValue();
 		scope.makeLocalSpecial(id);
+		Tracer.info(this, "Variable '" + idValue + "' marked dynamic in environment:\n" + this);
 	}
 
 	@Override
@@ -108,4 +116,13 @@ public abstract class AbstractEnvironment implements Environment {
 		return scope.getFun(id);
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(scope.toString());
+		if (getParent() != null) {
+			sb.append(getParent().toString());
+		}
+		return sb.toString();
+	}
 }

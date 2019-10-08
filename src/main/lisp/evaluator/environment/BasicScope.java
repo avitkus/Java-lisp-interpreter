@@ -21,6 +21,7 @@ public class BasicScope implements CopyableScope {
 
 	protected BasicScope() {
 		this(new ArrayList<>());
+		Tracer.info(BasicScope.class, "New scope");
 	}
 	
 	private BasicScope(Scope original) {
@@ -48,14 +49,14 @@ public class BasicScope implements CopyableScope {
 	public void put(IdentifierAtom id, SExpression value) {
 		String idValue = id.getValue();
 		idMap.put(idValue, value);
-		Tracer.info(this, "Variable '" + id + "' set to '" + value + "' in environment:\n" + this);
+//		Tracer.info(this, "Variable '" + id + "' set to '" + value + "' in scope:\n" + this);
 	}
 	
 	@Override
 	public void putFun(IdentifierAtom id, Function value) {
 		String idValue = id.getValue();
 		funMap.put(idValue, value);
-		Tracer.info(this, "Function '" + id + "' set to '" + value + "' in environment:\n" + this);
+//		Tracer.info(this, "Function '" + id + "' set to '" + value + "' in scope:\n" + this);
 	}
 
 	
@@ -82,14 +83,14 @@ public class BasicScope implements CopyableScope {
 	@Override
 	public void makeNameSpecial(IdentifierAtom id) {
 		String idValue = id.getValue();
-		Tracer.info(this, "Name '" + idValue + "' marked dynamic");
+//		Tracer.info(this, "Name '" + idValue + "' marked dynamic");
 		specialNames.add(idValue);
 	}
 	
 	@Override
 	public void makeLocalSpecial(IdentifierAtom id) {
 		String idValue = id.getValue();
-		Tracer.info(this, "Variable '" + idValue + "' marked dynamic in environment:\n" + this);
+//		Tracer.info(this, "Variable '" + idValue + "' marked dynamic in scope:\n" + this);
 		localSpecial.add(idValue);
 	}
 	
@@ -119,13 +120,19 @@ public class BasicScope implements CopyableScope {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("===============\n");
+		boolean empty = true;
 		if (!idMap.isEmpty()) {
 			sb.append("=== Values ====\n");
 			buildMapStr(idMap, sb);
+			empty = false;
 		}
 		if (!funMap.isEmpty()) {
 			sb.append("== Functions ==\n");
 			buildMapStr(funMap, sb);
+			empty = false;
+		}
+		if (empty) {
+			sb.append("<empty>\n");
 		}
 		return sb.toString();
 	}

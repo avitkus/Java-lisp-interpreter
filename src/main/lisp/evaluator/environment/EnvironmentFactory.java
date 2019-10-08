@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
 import main.lisp.evaluator.Environment;
+import util.trace.Tracer;
 
 /**
  * This class allows the class used to represent the execution environment
@@ -59,16 +60,18 @@ public class EnvironmentFactory {
 	 * @return the environment
 	 */
 	public static Environment newInstance() {
+		Environment env = null;
 		try {
-			return (Environment) environmentClass.newInstance();
+			env = (Environment) environmentClass.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 			try {
-				return (Environment) defaultEnvironmentClass.newInstance();
+				env = (Environment) defaultEnvironmentClass.newInstance();
 			} catch (InstantiationException | IllegalAccessException e1) {
 				e1.printStackTrace();
-				return null;
 			}
 		}
+		Tracer.info(EnvironmentFactory.class, "New root environment:\n" + env);
+		return env;
 	}
 }

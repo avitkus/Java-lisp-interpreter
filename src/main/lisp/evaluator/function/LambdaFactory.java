@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import main.lisp.parser.terms.IdentifierAtom;
 import main.lisp.parser.terms.SExpression;
+import util.trace.Tracer;
 
 /**
  * This class allows for the class used to represent lambda expressions in the
@@ -62,16 +63,18 @@ public class LambdaFactory {
 	 * @return the lambda expression
 	 */
 	public static Lambda newInstance(IdentifierAtom[] argNames, SExpression body) {
+		Lambda ret = null;
 		try {
-			return (Lambda) lambdaClass.getConstructor(IdentifierAtom[].class, SExpression.class).newInstance(argNames, body);
+			ret = (Lambda) lambdaClass.getConstructor(IdentifierAtom[].class, SExpression.class).newInstance(argNames, body);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 			try {
-				return (Lambda) defaultLambdaClass.getConstructor(IdentifierAtom[].class, SExpression.class).newInstance(argNames, body);
+				ret = (Lambda) defaultLambdaClass.getConstructor(IdentifierAtom[].class, SExpression.class).newInstance(argNames, body);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e1) {
 				e1.printStackTrace();
-				return null;
 			}
 		}
+		Tracer.info(LambdaFactory.class, "New lambda: " + ret);
+		return ret;
 	}
 }

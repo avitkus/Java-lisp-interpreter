@@ -2,8 +2,12 @@ package main;
 
 import main.lisp.evaluator.BasicOperationManager;
 import main.lisp.evaluator.BuiltinOperationManagerSingleton;
+import main.lisp.evaluator.environment.AbstractEnvironment;
 import main.lisp.evaluator.environment.BasicConglomerateEnvironment;
 import main.lisp.evaluator.environment.BasicScope;
+import main.lisp.evaluator.environment.EnvironmentFactory;
+import main.lisp.evaluator.function.FunctionFactory;
+import main.lisp.evaluator.function.LambdaFactory;
 import main.lisp.interpreter.InterpreterControllerFactory;
 import main.lisp.interpreter.InterpreterModelFactory;
 import main.lisp.interpreter.InterpreterViewFactory;
@@ -25,6 +29,7 @@ public class LispInterpreterTraceUtility {
 		// Operation
 		Tracer.setKeywordPrintStatus(BasicOperationManager.class, true);
 		Tracer.setKeywordPrintStatus(AbstractSExpression.class, true);
+		Tracer.setKeywordPrintStatus(AbstractEnvironment.class, true);
 		Tracer.setKeywordPrintStatus(BasicScope.class, true);
 		Tracer.setKeywordPrintStatus(BasicConglomerateEnvironment.class, true);
 		
@@ -37,5 +42,8 @@ public class LispInterpreterTraceUtility {
 		Tracer.setKeywordPrintStatus(InterpreterViewFactory.class, true);
 		Tracer.setKeywordPrintStatus(InterpreterControllerFactory.class, true);
 		Tracer.setKeywordPrintStatus(BuiltinOperationManagerSingleton.class, true);
+		Tracer.setKeywordPrintStatus(EnvironmentFactory.class, true);
+		Tracer.setKeywordPrintStatus(LambdaFactory.class, true);
+		Tracer.setKeywordPrintStatus(FunctionFactory.class, true);
 	}
 }

@@ -3,6 +3,7 @@ package main.lisp.evaluator.function;
 import java.lang.reflect.InvocationTargetException;
 
 import main.lisp.evaluator.Environment;
+import util.trace.Tracer;
 
 /**
  * This class allows for the class used to represent lambda expressions in the
@@ -61,16 +62,18 @@ public class FunctionFactory {
 	 * @return the function
 	 */
 	public static Function newInstance(Lambda lambda, Environment environment) {
+		Function ret = null;
 		try {
-			return (Function) functionClass.getConstructor(Lambda.class, Environment.class).newInstance(lambda, environment);
+			ret = (Function) functionClass.getConstructor(Lambda.class, Environment.class).newInstance(lambda, environment);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 			try {
-				return (Function) defaultFunctionClass.getConstructor(Lambda.class, Environment.class).newInstance(lambda, environment);
+				ret = (Function) defaultFunctionClass.getConstructor(Lambda.class, Environment.class).newInstance(lambda, environment);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e1) {
 				e1.printStackTrace();
-				return null;
 			}
 		}
+		Tracer.info(FunctionFactory.class, "New function: " + ret);
+		return ret;
 	}
 }

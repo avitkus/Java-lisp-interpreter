@@ -2,9 +2,9 @@ package main.lisp.evaluator.basic;
 
 import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
-import main.lisp.parser.terms.IdentifierAtom;
 import main.lisp.parser.terms.NilAtom;
 import main.lisp.parser.terms.SExpression;
+import main.lisp.parser.terms.TAtom;
 
 public class NullEvaluator implements Evaluator {
 
@@ -22,7 +22,7 @@ public class NullEvaluator implements Evaluator {
 		SExpression firstEvaled = expr.getHead().eval(environment);
 		
 		if (firstEvaled instanceof NilAtom) {
-			return new IdentifierAtom("T");
+			return new TAtom();
 		} else {
 			return new NilAtom();
 		}

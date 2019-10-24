@@ -1,6 +1,7 @@
 package main.lisp.evaluator.function;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 import main.lisp.parser.terms.IdentifierAtom;
 import main.lisp.parser.terms.SExpression;
@@ -74,7 +75,7 @@ public class LambdaFactory {
 				e1.printStackTrace();
 			}
 		}
-		Tracer.info(LambdaFactory.class, "New lambda: " + ret);
+		Tracer.info(LambdaFactory.class, "New lambda: " + "\n\targNames:" + Arrays.toString(argNames) + "\n\tbody:" + body);
 		return ret;
 	}
 }

@@ -73,7 +73,10 @@ public class FunctionFactory {
 				e1.printStackTrace();
 			}
 		}
-		Tracer.info(FunctionFactory.class, "New function: " + ret);
+//		Tracer.info(FunctionFactory.class, "New function: " + ret);
+		Tracer.info(FunctionFactory.class, "New function: " + "\n\tlambda:" +lambda + "\n\tenvironment:" + environment);
+		
+
 		return ret;
 	}
 }

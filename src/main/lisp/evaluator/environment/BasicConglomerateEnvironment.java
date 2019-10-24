@@ -181,8 +181,8 @@ public class BasicConglomerateEnvironment implements ConglomerateEnvironment {
 		return new BasicConglomerateEnvironment(lexical, dynamic);
 	}
 
-	@Override
-	public String toString() {
+//	@Override
+	public String toStringConglomerate() {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("===== LEXICAL =====\n");
@@ -191,6 +191,18 @@ public class BasicConglomerateEnvironment implements ConglomerateEnvironment {
 		sb.append(dynamic);
 		
 		return sb.toString();
+	}
+	@Override
+	public String toString() {
+		return lexical.toString();
+//		StringBuilder sb = new StringBuilder();
+//		
+//		sb.append("===== LEXICAL =====\n");
+//		sb.append(lexical);
+//		sb.append("\n===== DYNAMIC =====\n");
+//		sb.append(dynamic);
+//		
+//		return sb.toString();
 	}
 
 	@Override

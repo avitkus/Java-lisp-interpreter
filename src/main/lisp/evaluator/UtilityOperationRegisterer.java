@@ -1,5 +1,7 @@
 package main.lisp.evaluator;
 
+import main.lisp.evaluator.parallel.PrintThreadEvaluator;
+import main.lisp.evaluator.parallel.SleepEvaluator;
 import main.lisp.evaluator.string.CharEvaluator;
 import main.lisp.evaluator.string.ConcatenateEvaluator;
 import main.lisp.evaluator.string.StrlenEvaluator;
@@ -20,6 +22,7 @@ public class UtilityOperationRegisterer implements OperationRegisterer {
 	public static void registerAll() {
 		registerUtilityOperations();
 		registerStringOperations();
+		registerParallelOperations();
 	}
 	
 	public static void registerUtilityOperations() {
@@ -36,5 +39,10 @@ public class UtilityOperationRegisterer implements OperationRegisterer {
 		BuiltinOperationManagerSingleton.get().registerEvaluator("concatenate", new ConcatenateEvaluator());
 		BuiltinOperationManagerSingleton.get().registerEvaluator("write-to-string", new WriteToStringEvaluator());
 		BuiltinOperationManagerSingleton.get().registerEvaluator("strlen", new StrlenEvaluator());
+	}
+	
+	public static void registerParallelOperations() {
+		BuiltinOperationManagerSingleton.get().registerEvaluator("sleep", new SleepEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluator("printthread", new PrintThreadEvaluator());
 	}
 }

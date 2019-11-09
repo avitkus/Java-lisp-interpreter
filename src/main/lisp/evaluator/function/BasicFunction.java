@@ -13,7 +13,7 @@ public class BasicFunction extends AbstractAtom<String> implements Function {
 	public BasicFunction(Lambda lambda, Environment env) {
 		super(null);
 		this.lambda = lambda;
-		if (LispInterpreterSettings.isDeepCopyFinal()) {
+		if (LispInterpreterSettings.isDeepCopyEnvironment()) {
 			this.env = env.copy();
 		} else {
 			this.env = env;

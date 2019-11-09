@@ -9,7 +9,7 @@ public class LispInterpreterSettings {
 	
 	protected static boolean unboundDefaultLexical = true;
 	
-	protected static boolean deepCopyFinal = true;
+	protected static boolean deepCopyEnvironment = true;
 
 	/**
 	 * @return the evaluationMode
@@ -42,15 +42,15 @@ public class LispInterpreterSettings {
 	/**
 	 * @return the deepCopyFinal
 	 */
-	public static boolean isDeepCopyFinal() {
-		return deepCopyFinal;
+	public static boolean isDeepCopyEnvironment() {
+		return deepCopyEnvironment;
 	}
 
 	/**
-	 * @param deepCopyFinal the deepCopyFinal to set
+	 * @param deepCopyEnvironment the deepCopyFinal to set
 	 */
-	public static void setDeepCopyFinal(boolean deepCopyFinal) {
-		LispInterpreterSettings.deepCopyFinal = deepCopyFinal;
+	public static void setDeepCopyEnvironment(boolean deepCopyEnvironment) {
+		LispInterpreterSettings.deepCopyEnvironment = deepCopyEnvironment;
 	}
 	
 	

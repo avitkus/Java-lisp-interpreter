@@ -2,6 +2,7 @@ package main;
 
 import main.lisp.evaluator.BasicOperationRegisterer;
 import main.lisp.evaluator.UtilityOperationRegisterer;
+import main.lisp.evaluator.parallel.ThreadPoolSingleton;
 import main.lisp.interpreter.InterpreterController;
 import main.lisp.interpreter.InterpreterControllerSingleton;
 import main.lisp.interpreter.InterpreterModel;
@@ -26,5 +27,6 @@ public class Main {
 		controller.setModel(interpreter);
 		
 		controller.run();
+		ThreadPoolSingleton.get().quit();
 	}
 }

@@ -9,7 +9,7 @@ public class LispInterpreterSettings {
 	
 	protected static boolean unboundDefaultLexical = true;
 	
-	protected static boolean deepCopyEnvironment = true;
+	protected static boolean deepCopyEnvironment = false;
 	
 	protected static boolean eagerPool = false;
 	

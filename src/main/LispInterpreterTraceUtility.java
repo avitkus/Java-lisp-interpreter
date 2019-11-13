@@ -8,6 +8,9 @@ import main.lisp.evaluator.environment.BasicScope;
 import main.lisp.evaluator.environment.EnvironmentFactory;
 import main.lisp.evaluator.function.FunctionFactory;
 import main.lisp.evaluator.function.LambdaFactory;
+import main.lisp.evaluator.parallel.args.ArgumentEvaluatorSingleton;
+import main.lisp.evaluator.parallel.pool.AbstractThreadPool;
+import main.lisp.evaluator.parallel.pool.ThreadPoolSingleton;
 import main.lisp.interpreter.InterpreterControllerFactory;
 import main.lisp.interpreter.InterpreterModelFactory;
 import main.lisp.interpreter.InterpreterViewFactory;
@@ -32,6 +35,8 @@ public class LispInterpreterTraceUtility {
 		Tracer.setKeywordPrintStatus(AbstractEnvironment.class, true);
 		Tracer.setKeywordPrintStatus(BasicScope.class, true);
 		Tracer.setKeywordPrintStatus(BasicConglomerateEnvironment.class, true);
+		Tracer.setKeywordDisplayStatus(LispInterpreterSettings.class, true);
+		Tracer.setKeywordDisplayStatus(AbstractThreadPool.class, true);
 		
 		// Factories
 		Tracer.setKeywordPrintStatus(TokenFactory.class, true);
@@ -45,5 +50,7 @@ public class LispInterpreterTraceUtility {
 		Tracer.setKeywordPrintStatus(EnvironmentFactory.class, true);
 		Tracer.setKeywordPrintStatus(LambdaFactory.class, true);
 		Tracer.setKeywordPrintStatus(FunctionFactory.class, true);
+		Tracer.setKeywordPrintStatus(ThreadPoolSingleton.class, true);
+		Tracer.setKeywordPrintStatus(ArgumentEvaluatorSingleton.class, true);
 	}
 }

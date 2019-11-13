@@ -36,6 +36,7 @@ public class BasicOperationManager implements OperationManager {
 
 	@Override
 	public void clear() {
+		Tracer.info(this, "Clearing evaluators");
 		evaluatorMap.clear();
 	}
 }

@@ -2,8 +2,9 @@ package main;
 
 import main.lisp.evaluator.Evaluator;
 import main.lisp.evaluator.OperationRegisterer;
-import main.lisp.evaluator.parallel.ThreadPool;
-import main.lisp.evaluator.parallel.ThreadPoolWorker;
+import main.lisp.evaluator.parallel.args.ArgumentEvaluator;
+import main.lisp.evaluator.parallel.pool.ThreadPool;
+import main.lisp.evaluator.parallel.pool.ThreadPoolWorker;
 import main.lisp.parser.terms.SExpression;
 import main.util.parallel.Joiner;
 import main.util.parallel.MutableJoiner;
@@ -77,4 +78,14 @@ public interface ClassRegistryA4 extends ClassRegistryA3 {
 	public Class<? extends ThreadPool> getThreadPool();
 	
 	public Class<? extends ThreadPoolWorker> getThreadPoolWorker();
+	
+	public Class<? extends ArgumentEvaluator> getArgumentEvaluator();
+	
+	public Class<? extends SExpression> getEagerSExpression();
+	public Class<? extends Evaluator> getEagerCurry();
+	public Class<? extends Evaluator> getEagerDefcurry();
+	public Class<? extends Evaluator> getEagerFuncall();
+	public Class<? extends Evaluator> getEagerAnd();
+	public Class<? extends Evaluator> getEagerOr();
+	public Class<? extends Evaluator> getEagerList();
 }

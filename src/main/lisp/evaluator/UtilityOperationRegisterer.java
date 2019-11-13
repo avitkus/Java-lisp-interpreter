@@ -1,5 +1,11 @@
 package main.lisp.evaluator;
 
+import main.lisp.evaluator.config.SetDeepCopyEagerEnvironmentEvaluator;
+import main.lisp.evaluator.config.SetDeepCopyFunctionEnvironmentEvaluator;
+import main.lisp.evaluator.config.SetEagerPoolEvaluator;
+import main.lisp.evaluator.config.SetEvalModeEvaluator;
+import main.lisp.evaluator.config.SetShowThreadNameEvaluator;
+import main.lisp.evaluator.config.SetTracingEvaluator;
 import main.lisp.evaluator.parallel.NumThreadsEvaluator;
 import main.lisp.evaluator.parallel.PrintThreadEvaluator;
 import main.lisp.evaluator.parallel.SleepEvaluator;
@@ -24,6 +30,8 @@ public class UtilityOperationRegisterer implements OperationRegisterer {
 		registerUtilityOperations();
 		registerStringOperations();
 		registerParallelOperations();
+		registerConfigOperations();
+		registerTraceOperations();
 	}
 	
 	public static void registerUtilityOperations() {
@@ -46,5 +54,17 @@ public class UtilityOperationRegisterer implements OperationRegisterer {
 		BuiltinOperationManagerSingleton.get().registerEvaluator("sleep", new SleepEvaluator());
 		BuiltinOperationManagerSingleton.get().registerEvaluator("printthread", new PrintThreadEvaluator());
 		BuiltinOperationManagerSingleton.get().registerEvaluator("numthreads", new NumThreadsEvaluator());
+	}
+	
+	public static void registerConfigOperations() {
+		BuiltinOperationManagerSingleton.get().registerEvaluator("setDeepCopyEagerEnvironment", new SetDeepCopyEagerEnvironmentEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluator("setDeepCopyFunctionEnvironment", new SetDeepCopyFunctionEnvironmentEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluator("setEvalMode", new SetEvalModeEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluator("setEagerPool", new SetEagerPoolEvaluator());
+	}
+	
+	public static void registerTraceOperations() {
+		BuiltinOperationManagerSingleton.get().registerEvaluator("setTracing", new SetTracingEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluator("setShowThreadName", new SetShowThreadNameEvaluator());
 	}
 }

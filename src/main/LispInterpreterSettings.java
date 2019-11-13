@@ -1,5 +1,7 @@
 package main;
 
+import util.trace.Tracer;
+
 public class LispInterpreterSettings {
 	public static enum EvaluationMode {
 		LAZY, EAGER, NORMAL
@@ -26,6 +28,7 @@ public class LispInterpreterSettings {
 	 * @param evaluationMode the evaluationMode to set
 	 */
 	public static void setEvaluationMode(EvaluationMode evaluationMode) {
+		Tracer.info(LispInterpreterSettings.class, "evaluationMode: " + LispInterpreterSettings.evaluationMode + " -> " + evaluationMode);
 		LispInterpreterSettings.evaluationMode = evaluationMode;
 	}
 
@@ -40,6 +43,7 @@ public class LispInterpreterSettings {
 	 * @param unboundLexical the dynamicScope to set
 	 */
 	public static void setUnboundLexical(boolean unboundLexical) {
+		Tracer.info(LispInterpreterSettings.class, "unboundDefaultLexical: " + LispInterpreterSettings.unboundDefaultLexical + " -> " + unboundLexical);
 		LispInterpreterSettings.unboundDefaultLexical = unboundLexical;
 	}
 
@@ -53,7 +57,8 @@ public class LispInterpreterSettings {
 	/**
 	 * @param deepCopyEnvironment should function calls use deep copies of environments
 	 */
-	public static void setDeepCopyEnvironment(boolean deepCopyEnvironment) {
+	public static void setDeepCopyFunctionEnvironment(boolean deepCopyEnvironment) {
+		Tracer.info(LispInterpreterSettings.class, "deepCopyEnvironment: " + LispInterpreterSettings.deepCopyEnvironment + " -> " + deepCopyEnvironment);
 		LispInterpreterSettings.deepCopyEnvironment = deepCopyEnvironment;
 	}
 
@@ -68,6 +73,7 @@ public class LispInterpreterSettings {
 	 * @param eagerPool the eagerPool to set
 	 */
 	public static void setEagerPool(boolean eagerPool) {
+		Tracer.info(LispInterpreterSettings.class, "eagerPool: " + LispInterpreterSettings.eagerPool + " -> " + eagerPool);
 		LispInterpreterSettings.eagerPool = eagerPool;
 	}
 
@@ -81,7 +87,8 @@ public class LispInterpreterSettings {
 	/**
 	 * @param eagerDeepCopyEnvironment the eagerDeepCopyEnvironment to set
 	 */
-	public static void setEagerDeepCopyEnvironment(boolean eagerDeepCopyEnvironment) {
+	public static void setDeepCopyEagerEnvironment(boolean eagerDeepCopyEnvironment) {
+		Tracer.info(LispInterpreterSettings.class, "eagerDeepCopyEnvironment: " + LispInterpreterSettings.eagerDeepCopyEnvironment + " -> " + eagerDeepCopyEnvironment);
 		LispInterpreterSettings.eagerDeepCopyEnvironment = eagerDeepCopyEnvironment;
 	}
 	

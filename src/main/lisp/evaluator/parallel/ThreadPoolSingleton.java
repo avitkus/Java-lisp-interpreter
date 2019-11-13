@@ -58,23 +58,35 @@ public class ThreadPoolSingleton {
 	 */
 	public static ThreadPool get() {
 		if (threadPool == null) {
-			createInstance();
+			threadPool = createInstance();
 		}
 		return threadPool;
 	}
 	
-	private static void createInstance() {
+	/**
+	 * Replaces the {@link ThreadPool} for eager evaluation with a
+	 * fresh instantiation.
+	 * 
+	 * @return thread pool
+	 */
+	public static void reset() {
+		threadPool = createInstance();
+	}
+	
+	private static ThreadPool createInstance() {
+		ThreadPool ret;
 		try {
-			threadPool = (ThreadPool) ThreadPoolClass.newInstance();
+			ret = (ThreadPool) ThreadPoolClass.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 			try {
-				threadPool = (ThreadPool) defaultThreadPoolClass.newInstance();
+				ret = (ThreadPool) defaultThreadPoolClass.newInstance();
 			} catch (InstantiationException | IllegalAccessException e1) {
 				e1.printStackTrace();
-				threadPool = null;
+				ret = null;
 			}
 		}
-		Tracer.info(ThreadPoolSingleton.class, "New thread pool: " + threadPool);
+		Tracer.info(ThreadPoolSingleton.class, "New thread pool: " + ret);
+		return ret;
 	}
 }

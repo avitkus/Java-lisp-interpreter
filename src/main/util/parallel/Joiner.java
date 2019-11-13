@@ -1,4 +1,4 @@
-package main.lisp.evaluator.parallel;
+package main.util.parallel;
 
 public interface Joiner {
 	public void finished();

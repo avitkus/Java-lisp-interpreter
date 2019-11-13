@@ -33,4 +33,9 @@ public class BasicOperationManager implements OperationManager {
 	public boolean removeEvaluator(String name) {
 		return evaluatorMap.remove(name) != null;
 	}
+
+	@Override
+	public void clear() {
+		evaluatorMap.clear();
+	}
 }

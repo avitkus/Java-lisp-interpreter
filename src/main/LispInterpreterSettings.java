@@ -10,6 +10,10 @@ public class LispInterpreterSettings {
 	protected static boolean unboundDefaultLexical = true;
 	
 	protected static boolean deepCopyEnvironment = true;
+	
+	protected static boolean eagerPool = false;
+	
+	protected static boolean eagerDeepCopyEnvironment = false;
 
 	/**
 	 * @return the evaluationMode
@@ -47,10 +51,38 @@ public class LispInterpreterSettings {
 	}
 
 	/**
-	 * @param deepCopyEnvironment the deepCopyFinal to set
+	 * @param deepCopyEnvironment should function calls use deep copies of environments
 	 */
 	public static void setDeepCopyEnvironment(boolean deepCopyEnvironment) {
 		LispInterpreterSettings.deepCopyEnvironment = deepCopyEnvironment;
+	}
+
+	/**
+	 * @return the eagerPool
+	 */
+	public static boolean isEagerPool() {
+		return eagerPool;
+	}
+
+	/**
+	 * @param eagerPool the eagerPool to set
+	 */
+	public static void setEagerPool(boolean eagerPool) {
+		LispInterpreterSettings.eagerPool = eagerPool;
+	}
+
+	/**
+	 * @return the eagerDeepCopyEnvironment
+	 */
+	public static boolean isEagerDeepCopyEnvironment() {
+		return eagerDeepCopyEnvironment;
+	}
+
+	/**
+	 * @param eagerDeepCopyEnvironment the eagerDeepCopyEnvironment to set
+	 */
+	public static void setEagerDeepCopyEnvironment(boolean eagerDeepCopyEnvironment) {
+		LispInterpreterSettings.eagerDeepCopyEnvironment = eagerDeepCopyEnvironment;
 	}
 	
 	

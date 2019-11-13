@@ -1,5 +1,6 @@
 package main.lisp.evaluator;
 
+import main.lisp.evaluator.parallel.NumThreadsEvaluator;
 import main.lisp.evaluator.parallel.PrintThreadEvaluator;
 import main.lisp.evaluator.parallel.SleepEvaluator;
 import main.lisp.evaluator.string.CharEvaluator;
@@ -44,5 +45,6 @@ public class UtilityOperationRegisterer implements OperationRegisterer {
 	public static void registerParallelOperations() {
 		BuiltinOperationManagerSingleton.get().registerEvaluator("sleep", new SleepEvaluator());
 		BuiltinOperationManagerSingleton.get().registerEvaluator("printthread", new PrintThreadEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluator("numthreads", new NumThreadsEvaluator());
 	}
 }

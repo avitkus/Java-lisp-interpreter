@@ -37,4 +37,6 @@ public interface OperationManager {
 	public Evaluator getEvaluator(String name);
 	
 	public Map<String, Evaluator> getEvaluators();
+	
+	public void clear();
 }

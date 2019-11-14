@@ -3,7 +3,7 @@ package main.lisp.evaluator.parallel.pool;
 public final class NullThreadPool extends AbstractThreadPool {
 
 	@Override
-	public void forkAll(Runnable... runnables) {
+	public void doParallel(Runnable... runnables) {
 		
 	}
 

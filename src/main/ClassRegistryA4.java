@@ -40,6 +40,13 @@ public interface ClassRegistryA4 extends ClassRegistryA3 {
 	public Class<? extends Evaluator> getDefunEvaluator();
 
 	/**
+	 * Gets the class implementing the "curry" operation's evaluator
+	 * 
+	 * @return curry evaluator class
+	 */
+	public Class<? extends Evaluator> getCurryEvaluator();
+
+	/**
 	 * Gets the class implementing the "defcurry" operation's evaluator
 	 * 
 	 * @return defcurry evaluator class

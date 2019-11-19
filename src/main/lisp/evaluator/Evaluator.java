@@ -1,5 +1,6 @@
 package main.lisp.evaluator;
 
+import main.lisp.evaluator.lazy.Thunk;
 import main.lisp.parser.terms.SExpression;
 
 /**
@@ -20,4 +21,8 @@ public interface Evaluator {
 	 * @throws IllegalStateException if this expression is malformed
 	 */
 	public SExpression eval(SExpression expr, Environment environment);
+	
+	public default SExpression lazyEval(SExpression expr, Environment environment) {
+		return eval(expr, environment);
+	}
 }

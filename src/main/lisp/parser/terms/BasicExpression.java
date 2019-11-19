@@ -3,6 +3,7 @@ package main.lisp.parser.terms;
 import main.lisp.evaluator.BuiltinOperationManagerSingleton;
 import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
+import main.lisp.evaluator.lazy.Thunk;
 import util.trace.Tracer;
 
 public class BasicExpression extends AbstractSExpression {
@@ -25,6 +26,20 @@ public class BasicExpression extends AbstractSExpression {
 				throw new IllegalStateException("No evaluator registered for operator '" + operator + "'");
 			}
 			return eval.eval(this, environment);
+		} else {
+			throw new IllegalStateException("Expression does not start with an operator");
+		}
+	}
+
+	@Override
+	public SExpression lazyEval(Environment environment) {
+		if (head instanceof IdentifierAtom) {
+			String operator = ((IdentifierAtom)head).getValue();
+			Evaluator eval = BuiltinOperationManagerSingleton.get().getEvaluator(operator);
+			if (eval == null) {
+				throw new IllegalStateException("No evaluator registered for operator '" + operator + "'");
+			}
+			return eval.lazyEval(this, environment);
 		} else {
 			throw new IllegalStateException("Expression does not start with an operator");
 		}

@@ -1,6 +1,7 @@
 package main.lisp.parser.terms;
 
 import main.lisp.evaluator.Environment;
+import main.lisp.evaluator.lazy.Thunk;
 
 /**
  * The {@code SExpression} interface provides a model for S-Expressions.
@@ -17,6 +18,11 @@ public interface SExpression {
 	 * @return S-Expression containing the result of evaluating this expression
 	 */
 	public SExpression eval(Environment environment);
+	
+	public default SExpression lazyEval(Environment environment) {
+		return eval(environment);
+//		throw new UnsupportedOperationException("Lazy evaluation not implemented");
+	}
 
 	/**
 	 * Get the head of the S-Expression

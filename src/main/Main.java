@@ -10,14 +10,14 @@ import main.lisp.interpreter.InterpreterModelFactory;
 import main.lisp.interpreter.InterpreterModelSingleton;
 import main.lisp.interpreter.InterpreterView;
 import main.lisp.interpreter.InterpreterViewSingleton;
-import main.lisp.interpreter.ObservableLispInterpreterWithEnvironment;
+import main.lisp.interpreter.ObservableLispInterpreterWithEnvironmentAndLazyEvaluation;
 
 public class Main {
 	public static void main(String[] args) {
 		BasicOperationRegisterer.registerAll();
 		UtilityOperationRegisterer.registerAll();
 		
-		InterpreterModelFactory.setClass(ObservableLispInterpreterWithEnvironment.class);
+		InterpreterModelFactory.setClass(ObservableLispInterpreterWithEnvironmentAndLazyEvaluation.class);
 		
 		InterpreterModel interpreter = InterpreterModelSingleton.get();
 		InterpreterView view = InterpreterViewSingleton.get();

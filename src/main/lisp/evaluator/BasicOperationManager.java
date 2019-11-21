@@ -21,7 +21,7 @@ public class BasicOperationManager implements OperationManager {
 	
 	@Override
 	public void registerEvaluatorIfNew(String name, Evaluator evaluator) {
-		if (evaluatorMap.containsKey(name)) {
+		if (evaluatorMap.containsKey(name.toUpperCase())) {
 			Tracer.info(this, "Not replacing exitsting evaluator for " + name);
 		} else {
 			Tracer.info(this, "Registering evaluator " + evaluator + " for " + name);

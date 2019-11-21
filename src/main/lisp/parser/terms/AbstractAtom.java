@@ -33,6 +33,21 @@ public abstract class AbstractAtom<T> extends AbstractSExpression implements Ato
 	}
 	
 	@Override
+	public SExpression lazyEval(Environment environment) {
+		SExpression ret = doLazyEval(environment);
+
+		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
+		LispInterpreterSettings.setThunkPrintEvals(false);
+		Tracer.info(this, "Lazy eval: " + this + " --> " + ret);
+		LispInterpreterSettings.setThunkPrintEvals(oldPrintEvals);
+		return ret;
+	}
+	
+	protected SExpression doLazyEval(Environment environment) {
+		return doEval(environment);
+	}
+	
+	@Override
 	public String toString() {
 		return token.getValue();
 	}

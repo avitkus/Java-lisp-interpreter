@@ -40,6 +40,8 @@ public class BasicLambda extends AbstractAtom<String> implements Lambda {
 			sb.append(args[i].getValue());
 		}
 		sb.append(")");
+		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
+		LispInterpreterSettings.setThunkPrintEvals(false);
 		if (body instanceof Atom) {
 			sb.append(" ").append(body);
 		} else {
@@ -49,6 +51,7 @@ public class BasicLambda extends AbstractAtom<String> implements Lambda {
 				tmp = tmp.getTail();
 			}
 		}
+		LispInterpreterSettings.setThunkPrintEvals(oldPrintEvals);
 		
 		return sb.toString();
 	}
@@ -70,6 +73,20 @@ public class BasicLambda extends AbstractAtom<String> implements Lambda {
 		
 		while (!(cur instanceof NilAtom)) {
 			ret = cur.getHead().eval(environment);
+			cur = cur.getTail();
+		}
+		
+		return ret;
+	}
+
+
+	@Override
+	protected SExpression doLazyEval(Environment environment) {
+		SExpression cur = body;
+		SExpression ret = new NilAtom();
+		
+		while (!(cur instanceof NilAtom)) {
+			ret = cur.getHead().lazyEval(environment);
 			cur = cur.getTail();
 		}
 		

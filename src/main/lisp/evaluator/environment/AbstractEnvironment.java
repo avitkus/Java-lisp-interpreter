@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import main.LispInterpreterSettings;
 import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.function.Function;
 import main.lisp.parser.terms.IdentifierAtom;
@@ -38,7 +39,10 @@ public abstract class AbstractEnvironment implements Environment {
 	@Override
 	public void put(IdentifierAtom id, SExpression value) {
 		scope.put(id, value);
+		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
+		LispInterpreterSettings.setThunkPrintEvals(false);
 		Tracer.info(this, "Variable '" + id + "' set to '" + value + "' in environment:\n" + this);
+		LispInterpreterSettings.setThunkPrintEvals(oldPrintEvals);
 	}
 
 	@Override

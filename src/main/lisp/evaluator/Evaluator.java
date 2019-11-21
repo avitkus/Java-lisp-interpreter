@@ -1,6 +1,5 @@
 package main.lisp.evaluator;
 
-import main.lisp.evaluator.lazy.Thunk;
 import main.lisp.parser.terms.SExpression;
 
 /**

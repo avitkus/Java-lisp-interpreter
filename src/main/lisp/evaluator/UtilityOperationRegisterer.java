@@ -2,6 +2,7 @@ package main.lisp.evaluator;
 
 import main.lisp.evaluator.config.SetDeepCopyEagerEnvironmentEvaluator;
 import main.lisp.evaluator.config.SetDeepCopyFunctionEnvironmentEvaluator;
+import main.lisp.evaluator.config.SetDeepCopyLazyEnvironmentEvaluator;
 import main.lisp.evaluator.config.SetEagerPoolEvaluator;
 import main.lisp.evaluator.config.SetEvalModeEvaluator;
 import main.lisp.evaluator.config.SetShowThreadNameEvaluator;
@@ -58,6 +59,7 @@ public class UtilityOperationRegisterer implements OperationRegisterer {
 	
 	public static void registerConfigOperations() {
 		BuiltinOperationManagerSingleton.get().registerEvaluator("setDeepCopyEagerEnvironment", new SetDeepCopyEagerEnvironmentEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluator("setDeepCopyLazyEnvironment", new SetDeepCopyLazyEnvironmentEvaluator());
 		BuiltinOperationManagerSingleton.get().registerEvaluator("setDeepCopyFunctionEnvironment", new SetDeepCopyFunctionEnvironmentEvaluator());
 		BuiltinOperationManagerSingleton.get().registerEvaluator("setEvalMode", new SetEvalModeEvaluator());
 		BuiltinOperationManagerSingleton.get().registerEvaluator("setEagerPool", new SetEagerPoolEvaluator());

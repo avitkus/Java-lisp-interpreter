@@ -10,6 +10,7 @@ import main.LispInterpreterSettings;
 import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.environment.EnvironmentFactory;
 import main.lisp.evaluator.lazy.Thunk;
+import main.lisp.evaluator.lazy.ThunkFactory;
 import main.lisp.parser.Parser;
 import main.lisp.parser.ParserFactory;
 import main.lisp.parser.terms.SExpression;
@@ -73,7 +74,7 @@ public class ObservableLispInterpreterWithEnvironmentAndLazyEvaluation implement
 		Optional<SExpression> expression = parser.getExpression();
 		while(expression.isPresent()) {
 			if (LispInterpreterSettings.getEvaluationMode() == LispInterpreterSettings.EvaluationMode.LAZY) {
-				Thunk realExpression = new Thunk(expression.get(), rootEnvironment);
+				Thunk realExpression = ThunkFactory.newInstance(expression.get(), rootEnvironment);
 				firePropertyChange(EXPRESSION_PROPERTY, realExpression);
 				SExpression result = realExpression.eval(rootEnvironment);
 				firePropertyChange(RESULT_PROPERTY, result);

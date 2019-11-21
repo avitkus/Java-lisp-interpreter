@@ -11,7 +11,6 @@ import java.util.Set;
 
 import main.LispInterpreterSettings;
 import main.lisp.evaluator.Environment;
-import main.lisp.evaluator.environment.ConglomerateEnvironment;
 import main.lisp.evaluator.function.Function;
 import main.lisp.parser.terms.IdentifierAtom;
 import main.lisp.parser.terms.SExpression;

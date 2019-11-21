@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
+import main.LispInterpreterSettings;
 import util.trace.Tracer;
 
 /**
@@ -92,7 +93,11 @@ public class ExpressionFactory {
 				e1.printStackTrace();
 			}
 		}
+
+		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
+		LispInterpreterSettings.setThunkPrintEvals(false);
 		Tracer.info(ExpressionFactory.class, "New s-expression: " + ret);
+		LispInterpreterSettings.setThunkPrintEvals(oldPrintEvals);
 		return ret;
 	}
 }

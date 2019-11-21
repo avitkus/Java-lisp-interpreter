@@ -1,9 +1,9 @@
 package main.lisp.parser.terms;
 
+import main.LispInterpreterSettings;
 import main.lisp.evaluator.BuiltinOperationManagerSingleton;
 import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
-import main.lisp.evaluator.lazy.Thunk;
 import util.trace.Tracer;
 
 public class BasicExpression extends AbstractSExpression {
@@ -13,8 +13,11 @@ public class BasicExpression extends AbstractSExpression {
 	protected BasicExpression(SExpression head, SExpression tail) {
 		this.head = head;
 		this.tail = tail;
-		
+
+		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
+		LispInterpreterSettings.setThunkPrintEvals(false);
 		Tracer.info(this, this.getClass().getSimpleName() + "(" + head + ", " + tail + ")");
+		LispInterpreterSettings.setThunkPrintEvals(oldPrintEvals);
 	}
 	
 	@Override

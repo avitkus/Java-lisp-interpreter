@@ -1,5 +1,6 @@
 package main.lisp.parser.terms;
 
+import main.LispInterpreterSettings;
 import main.lisp.evaluator.Environment;
 import main.lisp.scanner.tokens.Token;
 import util.trace.Tracer;
@@ -19,7 +20,11 @@ public abstract class AbstractAtom<T> extends AbstractSExpression implements Ato
 	@Override
 	public SExpression eval(Environment environment) {
 		SExpression ret = doEval(environment);
+
+		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
+		LispInterpreterSettings.setThunkPrintEvals(false);
 		Tracer.info(this, "Eval: " + this + " --> " + ret);
+		LispInterpreterSettings.setThunkPrintEvals(oldPrintEvals);
 		return ret;
 	}
 	

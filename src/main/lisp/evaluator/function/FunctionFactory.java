@@ -2,6 +2,7 @@ package main.lisp.evaluator.function;
 
 import java.lang.reflect.InvocationTargetException;
 
+import main.LispInterpreterSettings;
 import main.lisp.evaluator.Environment;
 import util.trace.Tracer;
 
@@ -74,8 +75,10 @@ public class FunctionFactory {
 			}
 		}
 //		Tracer.info(FunctionFactory.class, "New function: " + ret);
+		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
+		LispInterpreterSettings.setThunkPrintEvals(false);
 		Tracer.info(FunctionFactory.class, "New function: " + "\n\tlambda:" +lambda + "\n\tenvironment:" + environment);
-		
+		LispInterpreterSettings.setThunkPrintEvals(oldPrintEvals);
 
 		return ret;
 	}

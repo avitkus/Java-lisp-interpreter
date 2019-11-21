@@ -9,7 +9,7 @@ import util.trace.Tracer;
 public class BasicFunction extends AbstractAtom<String> implements Function {
 	private final Lambda lambda;
 	private final Environment env;
-	
+
 	public BasicFunction(Lambda lambda, Environment env) {
 		super(null);
 		this.lambda = lambda;
@@ -19,21 +19,24 @@ public class BasicFunction extends AbstractAtom<String> implements Function {
 			this.env = env;
 		}
 	}
-	
+
 	protected void traceConstruction() {
+		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
+		LispInterpreterSettings.setThunkPrintEvals(false);
 		Tracer.info(this, this.getClass().getSimpleName() + "(" + lambda + ")");
+		LispInterpreterSettings.setThunkPrintEvals(oldPrintEvals);
 	}
 
 	@Override
 	public String getValue() {
 		return "#<FUNCTION :" + lambda + ">";
 	}
-	
+
 	@Override
 	public String toStringAsSExpression() {
 		return getValue();
 	}
-	
+
 	@Override
 	public String toString() {
 		return getValue();
@@ -41,9 +44,9 @@ public class BasicFunction extends AbstractAtom<String> implements Function {
 
 	@Override
 	public SExpression eval(Environment environment) {
-		throw new UnsupportedOperationException ("This can't be done with this method signature.");
+		throw new UnsupportedOperationException("This can't be done with this method signature.");
 	}
-	
+
 	@Override
 	public Lambda getLambda() {
 		return lambda;
@@ -53,13 +56,13 @@ public class BasicFunction extends AbstractAtom<String> implements Function {
 	public Environment getEnvironment() {
 		return env;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof Function)) {
 			return false;
 		} else {
-			Function fun = (Function)o;
+			Function fun = (Function) o;
 			if (!lambda.equals(fun.getLambda())) {
 				return false;
 			}

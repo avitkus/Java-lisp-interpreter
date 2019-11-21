@@ -2,6 +2,7 @@ package main.lisp.evaluator.function;
 
 import java.util.Arrays;
 
+import main.LispInterpreterSettings;
 import main.lisp.evaluator.Environment;
 import main.lisp.parser.terms.AbstractAtom;
 import main.lisp.parser.terms.Atom;
@@ -21,7 +22,10 @@ public class BasicLambda extends AbstractAtom<String> implements Lambda {
 	}
 	
 	protected void traceConstruction() {
+		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
+		LispInterpreterSettings.setThunkPrintEvals(false);
 		Tracer.info(this, this.getClass().getSimpleName() + "(" + Arrays.toString(args) + ", " + body + ")");
+		LispInterpreterSettings.setThunkPrintEvals(oldPrintEvals);
 	}
 
 	@Override

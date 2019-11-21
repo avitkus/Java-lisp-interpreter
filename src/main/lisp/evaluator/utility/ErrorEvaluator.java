@@ -1,5 +1,6 @@
 package main.lisp.evaluator.utility;
 
+import main.LispInterpreterSettings;
 import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
 import main.lisp.parser.terms.Atom;
@@ -25,8 +26,11 @@ public class ErrorEvaluator implements Evaluator {
 		}
 
 		expr = expr.eval(environment);
-		
+
+		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
+		LispInterpreterSettings.setThunkPrintEvals(false);
 		System.err.println(expr);
+		LispInterpreterSettings.setThunkPrintEvals(oldPrintEvals);
 		
 		throw new IllegalStateException("Error: " + expr);
 	}

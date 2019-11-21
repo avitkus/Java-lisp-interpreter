@@ -16,6 +16,10 @@ public class LispInterpreterSettings {
 	protected static boolean eagerPool = false;
 	
 	protected static boolean eagerDeepCopyEnvironment = false;
+	
+	protected static boolean lazyDeepCopyEnvironment = false;
+	
+	protected static boolean thunkPrintEvals = false;
 
 	/**
 	 * @return the evaluationMode
@@ -91,7 +95,26 @@ public class LispInterpreterSettings {
 		Tracer.info(LispInterpreterSettings.class, "eagerDeepCopyEnvironment: " + LispInterpreterSettings.eagerDeepCopyEnvironment + " -> " + eagerDeepCopyEnvironment);
 		LispInterpreterSettings.eagerDeepCopyEnvironment = eagerDeepCopyEnvironment;
 	}
+
+	/**
+	 * @return the lazyDeepCopyEnvironment
+	 */
+	public static boolean isDeepCopyLazyEnvironment() {
+		return lazyDeepCopyEnvironment;
+	}
+
+	/**
+	 * @param lazyDeepCopyEnvironment the lazyDeepCopyEnvironment to set
+	 */
+	public static void setDeepCopyLazyEnvironment(boolean lazyDeepCopyEnvironment) {
+		LispInterpreterSettings.lazyDeepCopyEnvironment = lazyDeepCopyEnvironment;
+	}
+
+	public static boolean doesThunkPrintEval() {
+		return thunkPrintEvals;
+	}
 	
-	
-	
+	public static void setThunkPrintEvals(boolean printEvals) {
+		LispInterpreterSettings.thunkPrintEvals = printEvals;
+	}
 }

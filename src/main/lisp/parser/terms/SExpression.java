@@ -1,7 +1,6 @@
 package main.lisp.parser.terms;
 
 import main.lisp.evaluator.Environment;
-import main.lisp.evaluator.lazy.Thunk;
 
 /**
  * The {@code SExpression} interface provides a model for S-Expressions.

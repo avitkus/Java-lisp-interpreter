@@ -2,6 +2,7 @@ package main.lisp.interpreter;
 
 import java.beans.PropertyChangeEvent;
 
+import main.LispInterpreterSettings;
 import main.lisp.parser.terms.SExpression;
 import main.lisp.scanner.tokens.Token;
 
@@ -31,7 +32,9 @@ public class BasicLispInterpreterView implements InterpreterView {
 			break;
 		case ObservableLispInterpreter.RESULT_PROPERTY:
 			SExpression evaled = (SExpression)evt.getNewValue();
+			LispInterpreterSettings.setThunkPrintEvals(true);
 			System.out.println(evaled);
+			LispInterpreterSettings.setThunkPrintEvals(false);
 		}
 	}
 }

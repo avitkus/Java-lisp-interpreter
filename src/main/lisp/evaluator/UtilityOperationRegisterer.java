@@ -36,37 +36,37 @@ public class UtilityOperationRegisterer implements OperationRegisterer {
 	}
 	
 	public static void registerUtilityOperations() {
-		BuiltinOperationManagerSingleton.get().registerEvaluator("quit", new QuitEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("print", new PrintEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("error", new ErrorEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("progn", new PrognEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("declare", new DeclareEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("quit", new QuitEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("print", new PrintEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("error", new ErrorEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("progn", new PrognEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("declare", new DeclareEvaluator());
 	}
 	
 	public static void registerStringOperations() {
-		BuiltinOperationManagerSingleton.get().registerEvaluator("char", new CharEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("char", new CharEvaluator());
 //		BuiltinOperationManagerSingleton.get().registerEvaluator("strcat", new StrcatEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("concatenate", new ConcatenateEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("write-to-string", new WriteToStringEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("strlen", new StrlenEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("concatenate", new ConcatenateEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("write-to-string", new WriteToStringEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("strlen", new StrlenEvaluator());
 	}
 	
 	public static void registerParallelOperations() {
-		BuiltinOperationManagerSingleton.get().registerEvaluator("sleep", new SleepEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("printthread", new PrintThreadEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("numthreads", new NumThreadsEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("sleep", new SleepEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("printthread", new PrintThreadEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("numthreads", new NumThreadsEvaluator());
 	}
 	
 	public static void registerConfigOperations() {
-		BuiltinOperationManagerSingleton.get().registerEvaluator("setDeepCopyEagerEnvironment", new SetDeepCopyEagerEnvironmentEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("setDeepCopyLazyEnvironment", new SetDeepCopyLazyEnvironmentEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("setDeepCopyFunctionEnvironment", new SetDeepCopyFunctionEnvironmentEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("setEvalMode", new SetEvalModeEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("setEagerPool", new SetEagerPoolEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("setDeepCopyEagerEnvironment", new SetDeepCopyEagerEnvironmentEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("setDeepCopyLazyEnvironment", new SetDeepCopyLazyEnvironmentEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("setDeepCopyFunctionEnvironment", new SetDeepCopyFunctionEnvironmentEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("setEvalMode", new SetEvalModeEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("setEagerPool", new SetEagerPoolEvaluator());
 	}
 	
 	public static void registerTraceOperations() {
-		BuiltinOperationManagerSingleton.get().registerEvaluator("setTracing", new SetTracingEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("setShowThreadName", new SetShowThreadNameEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("setTracing", new SetTracingEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("setShowThreadName", new SetShowThreadNameEvaluator());
 	}
 }

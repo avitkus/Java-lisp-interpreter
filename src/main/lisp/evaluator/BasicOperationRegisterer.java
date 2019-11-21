@@ -31,10 +31,10 @@ public class BasicOperationRegisterer implements OperationRegisterer {
 	 * @see QuotientEvaluator
 	 */
 	public static void registerArithmetic() {
-		BuiltinOperationManagerSingleton.get().registerEvaluator("+", new SumEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("-", new DifferenceEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("*", new ProductEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("/", new QuotientEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("+", new SumEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("-", new DifferenceEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("*", new ProductEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("/", new QuotientEvaluator());
 	}
 	
 	/**
@@ -48,11 +48,11 @@ public class BasicOperationRegisterer implements OperationRegisterer {
 	 * @see NullEvaluator
 	 */
 	public static void registerExpressionFunctions() {
-		BuiltinOperationManagerSingleton.get().registerEvaluator("car", new CarEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("cdr", new CdrEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("cons", new ConsEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("atom", new AtomEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("null", new NullEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("car", new CarEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("cdr", new CdrEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("cons", new ConsEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("atom", new AtomEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("null", new NullEvaluator());
 	}
 
 	/**
@@ -63,9 +63,9 @@ public class BasicOperationRegisterer implements OperationRegisterer {
 	 * @see NotEqualsEvaluator
 	 */
 	public static void registerComparison() {
-		BuiltinOperationManagerSingleton.get().registerEvaluator("eq", new EqEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("=", new EqualsEvaluator());
-		BuiltinOperationManagerSingleton.get().registerEvaluator("/=", new NotEqualsEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("eq", new EqEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("=", new EqualsEvaluator());
+		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("/=", new NotEqualsEvaluator());
 	}
 	
 	/**

@@ -20,6 +20,15 @@ public interface OperationManager {
 	public void registerEvaluator(String name, Evaluator evaluator);
 	
 	/**
+	 * Registers the evaluator for a given operation if there is no
+	 * existing binding
+	 * 
+	 * @param name operation name
+	 * @param evaluator operation evaluator
+	 */
+	public void registerEvaluatorIfNew(String name, Evaluator evaluator);
+	
+	/**
 	 * Removes the evaluator for a given operation
 	 * 
 	 * @param name operation name

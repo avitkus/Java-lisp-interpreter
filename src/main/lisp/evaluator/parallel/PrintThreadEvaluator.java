@@ -1,5 +1,6 @@
 package main.lisp.evaluator.parallel;
 
+import main.lisp.evaluator.AbstractEvaluator;
 import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
 import main.lisp.parser.terms.NilAtom;
@@ -9,8 +10,10 @@ import main.lisp.scanner.tokens.StringToken;
 import main.lisp.scanner.tokens.TokenFactory;
 import main.lisp.scanner.tokens.TokenType;
 
-public class PrintThreadEvaluator implements Evaluator {
-
+public class PrintThreadEvaluator extends AbstractEvaluator implements Evaluator {
+	public PrintThreadEvaluator() {
+		setName("printThread");
+	}
 	@Override
 	public SExpression eval(SExpression expr, Environment environment) {
 		if (!(expr.getTail() instanceof NilAtom)) {
@@ -19,7 +22,11 @@ public class PrintThreadEvaluator implements Evaluator {
 		String thread = Thread.currentThread().toString();
 		System.out.println(thread);
 		StringToken tok = (StringToken)TokenFactory.newInstance(TokenType.STRING, thread);
-		return new StringAtom(tok);
+		SExpression result = new StringAtom(tok);
+		evaled(expr, result);
+//		return new StringAtom(tok);
+		return result;
+
 	}
 
 }

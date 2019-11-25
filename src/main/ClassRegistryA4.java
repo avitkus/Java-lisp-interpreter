@@ -95,4 +95,6 @@ public interface ClassRegistryA4 extends ClassRegistryA3 {
 	public Class<? extends Evaluator> getEagerAnd();
 	public Class<? extends Evaluator> getEagerOr();
 	public Class<? extends Evaluator> getEagerList();
+	public Class<?> getServerMain();
+	public Class<?> getClientMain();
 }

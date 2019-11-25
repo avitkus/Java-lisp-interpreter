@@ -88,4 +88,14 @@ public abstract class AbstractAtom<T> extends AbstractSExpression implements Ato
 			}
 		}
 	}
+	
+	@Override
+	public boolean isAtom() {
+		return true;
+	}
+	
+	@Override
+	public boolean isNIL() {
+		return false;
+	}
 }

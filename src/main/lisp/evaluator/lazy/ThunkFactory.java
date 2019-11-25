@@ -6,8 +6,14 @@ import java.lang.reflect.Modifier;
 
 import main.LispInterpreterSettings;
 import main.lisp.evaluator.Environment;
+import main.lisp.parser.terms.DecimalAtom;
 import main.lisp.parser.terms.ExpressionFactory;
+import main.lisp.parser.terms.IntegerAtom;
+import main.lisp.parser.terms.NilAtom;
+import main.lisp.parser.terms.QuoteAtom;
 import main.lisp.parser.terms.SExpression;
+import main.lisp.parser.terms.StringAtom;
+import main.lisp.parser.terms.TAtom;
 import util.trace.Tracer;
 
 /**
@@ -77,7 +83,26 @@ public class ThunkFactory {
 	 * @param environment thunk environment
 	 * @return the thunk
 	 */
-	public static Thunk newInstance(SExpression body, Environment environment) {
+	public static SExpression newInstance(SExpression body, Environment environment) {
+		if (body instanceof NilAtom) {
+			Tracer.info(ThunkFactory.class, "Not boxing NIL atom with thunk");
+			return body;
+		} else if (body instanceof IntegerAtom) {
+			Tracer.info(ThunkFactory.class, "Not boxing integer atom with thunk");
+			return body;
+		} else if (body instanceof DecimalAtom) {
+			Tracer.info(ThunkFactory.class, "Not boxing decimal atom with thunk");
+			return body;
+		} else if (body instanceof StringAtom) {
+			Tracer.info(ThunkFactory.class, "Not boxing string atom with thunk");
+			return body;
+		} else if (body instanceof TAtom) {
+			Tracer.info(ThunkFactory.class, "Not boxing T atom with thunk");
+			return body;
+		} else if (body instanceof QuoteAtom) {
+			Tracer.info(ThunkFactory.class, "Not boxing quote atom with thunk");
+			return body;
+		}
 		Thunk ret = null;
 		try {
 			ret = (Thunk) thunkClass.getDeclaredConstructor(SExpression.class, Environment.class).newInstance(body, environment);
@@ -92,7 +117,7 @@ public class ThunkFactory {
 //		Tracer.info(FunctionFactory.class, "New function: " + ret);
 		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
 		LispInterpreterSettings.setThunkPrintEvals(false);
-		Tracer.info(ThunkFactory.class, "ThunkFactory.newInstance: " + "\n\tbody:" +body + "\n\tenvironment:" + environment);
+		Tracer.info(ThunkFactory.class, "New thunk: " + "\n\tbody:" +body + "\n\tenvironment:" + environment);
 		LispInterpreterSettings.setThunkPrintEvals(oldPrintEvals);
 
 		return ret;

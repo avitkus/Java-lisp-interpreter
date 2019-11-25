@@ -33,7 +33,9 @@ public class BasicLispInterpreterView implements InterpreterView {
 		case ObservableLispInterpreter.RESULT_PROPERTY:
 			SExpression evaled = (SExpression)evt.getNewValue();
 			LispInterpreterSettings.setThunkPrintEvals(true);
+			LispInterpreterSettings.setThunkMetaEvals(true);
 			System.out.println(evaled);
+			LispInterpreterSettings.setThunkMetaEvals(false);
 			LispInterpreterSettings.setThunkPrintEvals(false);
 		}
 	}

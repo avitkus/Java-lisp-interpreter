@@ -45,7 +45,7 @@ public class UtilityOperationRegisterer implements OperationRegisterer {
 	
 	public static void registerStringOperations() {
 		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("char", new CharEvaluator());
-//		BuiltinOperationManagerSingleton.get().registerEvaluator("strcat", new StrcatEvaluator());
+//		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("strcat", new StrcatEvaluator());
 		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("concatenate", new ConcatenateEvaluator());
 		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("write-to-string", new WriteToStringEvaluator());
 		BuiltinOperationManagerSingleton.get().registerEvaluatorIfNew("strlen", new StrlenEvaluator());

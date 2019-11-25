@@ -79,7 +79,6 @@ public class BasicLambda extends AbstractAtom<String> implements Lambda {
 		return ret;
 	}
 
-
 	@Override
 	protected SExpression doLazyEval(Environment environment) {
 		SExpression cur = body;

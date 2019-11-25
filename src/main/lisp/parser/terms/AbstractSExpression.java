@@ -6,4 +6,13 @@ public abstract class AbstractSExpression implements SExpression {
 		throw new UnsupportedOperationException("Not implemented");
 	}
 
+	@Override
+	public boolean isNIL() {
+		return false;
+	}
+	
+	@Override
+	public boolean isAtom() {
+		return false;
+	}
 }

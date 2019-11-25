@@ -60,4 +60,8 @@ public interface SExpression {
 	public String toStringAsSExpression();
 	
 	public String toStringAsSExpressionDeep();
+	
+	public boolean isNIL();
+	
+	public boolean isAtom();
 }

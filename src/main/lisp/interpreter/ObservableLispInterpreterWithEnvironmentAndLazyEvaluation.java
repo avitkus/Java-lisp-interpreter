@@ -74,7 +74,7 @@ public class ObservableLispInterpreterWithEnvironmentAndLazyEvaluation implement
 		Optional<SExpression> expression = parser.getExpression();
 		while(expression.isPresent()) {
 			if (LispInterpreterSettings.getEvaluationMode() == LispInterpreterSettings.EvaluationMode.LAZY) {
-				Thunk realExpression = ThunkFactory.newInstance(expression.get(), rootEnvironment);
+				SExpression realExpression = ThunkFactory.newInstance(expression.get(), rootEnvironment);
 				firePropertyChange(EXPRESSION_PROPERTY, realExpression);
 				SExpression result = realExpression.eval(rootEnvironment);
 				firePropertyChange(RESULT_PROPERTY, result);

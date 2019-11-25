@@ -1,5 +1,6 @@
 package main.lisp.parser.terms;
 
+import main.lisp.evaluator.lazy.Thunk;
 import main.lisp.scanner.tokens.TokenFactory;
 import main.lisp.scanner.tokens.TokenType;
 
@@ -26,6 +27,11 @@ public class NilAtom extends AbstractAtom<String> {
 	
 	@Override
 	public boolean isList() {
+		return true;
+	}
+	
+	@Override
+	public boolean isNIL() {
 		return true;
 	}
 }

@@ -20,6 +20,9 @@ public class LispInterpreterSettings {
 	protected static boolean lazyDeepCopyEnvironment = false;
 	
 	protected static boolean thunkPrintEvals = false;
+	
+	protected static boolean thunkMetaEvals = false;
+
 
 	/**
 	 * @return the evaluationMode
@@ -116,5 +119,19 @@ public class LispInterpreterSettings {
 	
 	public static void setThunkPrintEvals(boolean printEvals) {
 		LispInterpreterSettings.thunkPrintEvals = printEvals;
+	}
+
+	/**
+	 * @return the thunkMetaEvals
+	 */
+	public static boolean isThunkMetaEvals() {
+		return thunkMetaEvals;
+	}
+
+	/**
+	 * @param thunkMetaEvals the thunkMetaEvals to set
+	 */
+	public static void setThunkMetaEvals(boolean thunkMetaEvals) {
+		LispInterpreterSettings.thunkMetaEvals = thunkMetaEvals;
 	}
 }

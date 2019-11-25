@@ -26,7 +26,7 @@ public class PrintEvaluator implements Evaluator {
 		}
 		
 		expr = expr.eval(environment);
-
+		
 		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
 		LispInterpreterSettings.setThunkPrintEvals(true);
 		System.out.println(expr);

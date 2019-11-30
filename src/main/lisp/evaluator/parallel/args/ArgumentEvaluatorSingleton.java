@@ -34,7 +34,8 @@ public class ArgumentEvaluatorSingleton {
 	 */
 	public static void setClass(Class<? extends ArgumentEvaluator> clazz) {
 		if (argumentEvaluator != null) {
-			throw new UnsupportedOperationException("Cannot change argument evaluator class after instantiation");
+//			throw new UnsupportedOperationException("Cannot change argument evaluator class after instantiation");
+			System.err.println("Cannot change argument evaluator class after instantiation");
 		}
 		try {
 			Constructor<? extends ArgumentEvaluator> c = clazz.getDeclaredConstructor();

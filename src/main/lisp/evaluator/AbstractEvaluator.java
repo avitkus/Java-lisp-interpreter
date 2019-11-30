@@ -7,7 +7,7 @@ import java.beans.PropertyChangeSupport;
 import main.lisp.parser.terms.SExpression;
 import util.models.PropertyListenerRegisterer;
 
-public abstract class AbstractEvaluator implements PropertyListenerRegisterer {
+public abstract class AbstractEvaluator implements PropertyListenerRegisterer, Evaluator {
 	protected String name;
 	protected PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 	public String getName() {
@@ -20,6 +20,16 @@ public abstract class AbstractEvaluator implements PropertyListenerRegisterer {
 		PropertyChangeEvent anEvent = new PropertyChangeEvent(this, getName(), anInputExpression, aResultExpression);
 		propertyChangeSupport.firePropertyChange(anEvent);
 	}
+	public void removePropertyChangeListener(PropertyChangeListener aListener) {
+		propertyChangeSupport.removePropertyChangeListener(aListener);
+	}
+	public void clearPropertyChangeListeners() {
+		PropertyChangeListener[] aListeners = propertyChangeSupport.getPropertyChangeListeners();
+		for (PropertyChangeListener aListener:aListeners) {
+			propertyChangeSupport.removePropertyChangeListener(aListener);
+		}
+	}
+	
 
 
 	@Override

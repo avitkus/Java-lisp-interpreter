@@ -53,6 +53,14 @@ public class ObservableLispInterpreterWithEnvironment implements InterpreterMode
 	public void registerPropertyChangeListener(PropertyChangeListener listener) {
 		listeners.add(listener);
 	}
+	@Override
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		listeners.remove(listener);
+	}
+	@Override
+	public void clearPropertyChangeListeners() {
+		listeners.clear();
+	}
 
 	/**
 	 * <p>Process a {@link String} to tokenize and execute as lisp code.

@@ -36,6 +36,14 @@ public class ObservableLispInterpreter implements InterpreterModel {
 		parser = ParserFactory.newInstance();
 		listeners = new ArrayList<>();
 	}
+	@Override
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		listeners.remove(listener);
+	}
+	@Override
+	public void clearPropertyChangeListeners() {
+		listeners.clear();
+	}
 	
 	/**
 	 * <p> Registers a {@link PropertyChangeListener} instance with the interpreter.

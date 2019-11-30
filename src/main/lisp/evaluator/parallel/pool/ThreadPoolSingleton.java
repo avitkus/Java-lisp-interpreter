@@ -25,7 +25,8 @@ public class ThreadPoolSingleton {
 	 */
 	public static void setClass(Class<? extends ThreadPool> clazz) {
 		if (threadPool != null) {
-			throw new UnsupportedOperationException("Cannot change thread pool class after instantiation");
+//			throw new UnsupportedOperationException("Cannot change thread pool class after instantiation");
+			System.err.println("Cannot change thread pool class after instantiation");
 		}
 		try {
 			Constructor<? extends ThreadPool> c = clazz.getDeclaredConstructor();

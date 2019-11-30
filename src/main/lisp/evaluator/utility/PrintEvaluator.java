@@ -1,14 +1,17 @@
 package main.lisp.evaluator.utility;
 
 import main.LispInterpreterSettings;
+import main.lisp.evaluator.AbstractEvaluator;
 import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
 import main.lisp.parser.terms.Atom;
 import main.lisp.parser.terms.NilAtom;
 import main.lisp.parser.terms.SExpression;
 
-public class PrintEvaluator implements Evaluator {
-
+public class PrintEvaluator extends AbstractEvaluator implements Evaluator {
+	public PrintEvaluator() {
+		setName("print");
+	}
 	@Override
 	public SExpression eval(SExpression expr, Environment environment) {
 		expr = expr.getTail();

@@ -14,6 +14,7 @@ public class PrintEvaluator extends AbstractEvaluator implements Evaluator {
 	}
 	@Override
 	public SExpression eval(SExpression expr, Environment environment) {
+		SExpression inputExpr = expr;
 		expr = expr.getTail();
 		
 		if (expr instanceof NilAtom) {
@@ -33,6 +34,8 @@ public class PrintEvaluator extends AbstractEvaluator implements Evaluator {
 		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
 		LispInterpreterSettings.setThunkPrintEvals(true);
 		System.out.println(expr);
+		evaled(inputExpr, expr);
+
 		LispInterpreterSettings.setThunkPrintEvals(oldPrintEvals);
 		
 		return expr;

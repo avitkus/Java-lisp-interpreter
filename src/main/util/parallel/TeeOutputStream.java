@@ -22,6 +22,10 @@ public class TeeOutputStream extends OutputStream {
 		}
 	}
 	
+	public void removeStream(OutputStream outputStream) {
+		streams.remove(outputStream);
+	}
+	
 	@Override
 	public void write(int b) throws IOException {
 		for(OutputStream stream : streams) {

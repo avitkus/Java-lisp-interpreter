@@ -1,20 +1,17 @@
-package main.lisp.evaluator.basic;
+package main.lisp.evaluator.lazy.basic;
 
-import main.lisp.evaluator.AbstractEvaluator;
 import main.lisp.evaluator.Environment;
 import main.lisp.evaluator.Evaluator;
+import main.lisp.evaluator.basic.ConsEvaluator;
+import main.lisp.evaluator.lazy.ThunkFactory;
 import main.lisp.parser.terms.ExpressionFactory;
 import main.lisp.parser.terms.NilAtom;
 import main.lisp.parser.terms.SExpression;
 
-public class ConsEvaluator extends AbstractEvaluator implements Evaluator {
+public class LazyConsEvaluator extends ConsEvaluator {
 
-	public ConsEvaluator() {
-		setName("cons");
-	}
-	
 	@Override
-	public SExpression eval(SExpression expr, Environment environment) {
+	public SExpression lazyEval(SExpression expr, Environment environment) {
 		SExpression inputExpr = expr;
 		expr = expr.getTail();
 		if (expr instanceof NilAtom || expr.getTail() instanceof NilAtom) {
@@ -24,8 +21,8 @@ public class ConsEvaluator extends AbstractEvaluator implements Evaluator {
 			throw new IllegalStateException("Too many arguments for operator 'cons'");
 		}
 		
-		SExpression firstEvaled = expr.getHead().eval(environment);
-		SExpression secondEvaled = expr.getTail().getHead().eval(environment);
+		SExpression firstEvaled = ThunkFactory.newInstance(expr.getHead(), environment);
+		SExpression secondEvaled = ThunkFactory.newInstance(expr.getTail().getHead(), environment);
 		
 		SExpression ret = ExpressionFactory.newInstance(firstEvaled, secondEvaled);
 
@@ -33,5 +30,4 @@ public class ConsEvaluator extends AbstractEvaluator implements Evaluator {
 		
 		return ret;
 	}
-
 }

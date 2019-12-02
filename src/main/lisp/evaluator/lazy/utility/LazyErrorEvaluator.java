@@ -1,43 +1,37 @@
-package main.lisp.evaluator.utility;
+package main.lisp.evaluator.lazy.utility;
 
 import main.LispInterpreterSettings;
-import main.lisp.evaluator.AbstractEvaluator;
 import main.lisp.evaluator.Environment;
-import main.lisp.evaluator.Evaluator;
-import main.lisp.parser.terms.Atom;
-import main.lisp.parser.terms.NilAtom;
+import main.lisp.evaluator.lazy.Thunk;
+import main.lisp.evaluator.utility.ErrorEvaluator;
 import main.lisp.parser.terms.SExpression;
 
-public class ErrorEvaluator extends AbstractEvaluator implements Evaluator {
+public class LazyErrorEvaluator extends ErrorEvaluator {
 
-	public ErrorEvaluator() {
-		setName("error");
-	}
-	
 	@Override
-	public SExpression eval(SExpression expr, Environment environment) {
-		SExpression inputExpr = expr;
+	public SExpression lazyEval(SExpression expr, Environment environment) {
 		expr = expr.getTail();
 		
-		if (expr instanceof NilAtom) {
+		if (expr.isNIL()) {
 			throw new IllegalStateException("Missing arguments for operator 'error'");
 		}
 		
-		if (!(expr.getTail() instanceof NilAtom)) {
+		if (!expr.getTail().isNIL()) {
 			throw new IllegalStateException("Too many arguments for operator 'error'");
 		}
 		
-		if (!(expr instanceof Atom)) {
+		if (!expr.isAtom()) {
 			expr = expr.getHead();
 		}
 
-		expr = expr.eval(environment);
+		expr = expr.lazyEval(environment);
+		if (expr instanceof Thunk) {
+			expr = expr.eval(environment);
+		}
 
 		boolean oldPrintEvals = LispInterpreterSettings.doesThunkPrintEval();
 		LispInterpreterSettings.setThunkPrintEvals(false);
 		System.err.println(expr);
-		evaled(inputExpr, expr);
-		
 		LispInterpreterSettings.setThunkPrintEvals(oldPrintEvals);
 		
 		throw new IllegalStateException("Error: " + expr);

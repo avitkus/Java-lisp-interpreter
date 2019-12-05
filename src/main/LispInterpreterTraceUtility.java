@@ -27,7 +27,7 @@ public class LispInterpreterTraceUtility {
 	 * Make a copy if you want this changed
 	 */
 	public static void setTracing() {
-		Tracer.showInfo(true);
+//		Tracer.showInfo(true);
 		
 		// Operation
 		Tracer.setKeywordPrintStatus(BasicOperationManager.class, true);

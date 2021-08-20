@@ -66,6 +66,10 @@ public abstract class AbstractAtom<T> extends AbstractSExpression implements Ato
 	protected String toStringAsListHelper() {
 		return toString();
 	}
+	@Override
+	public String toStringAsListHelperPublic() {
+		return toString();
+	}
 	
 	@Override
 	public String toStringAsSExpression() {

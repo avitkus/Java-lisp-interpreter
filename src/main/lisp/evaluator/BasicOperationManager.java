@@ -41,6 +41,7 @@ public class BasicOperationManager implements OperationManager {
 
 	@Override
 	public boolean removeEvaluator(String name) {
+		Tracer.info(this, "Removing evaluator for " + name);
 		return evaluatorMap.remove(name) != null;
 	}
 

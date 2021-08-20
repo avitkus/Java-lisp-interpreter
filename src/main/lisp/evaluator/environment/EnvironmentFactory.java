@@ -51,6 +51,7 @@ public class EnvironmentFactory {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
+		Tracer.info(EnvironmentFactory.class, "Setting environment class to:" + clazz);
 		environmentClass = clazz;
 	}
 
@@ -63,6 +64,8 @@ public class EnvironmentFactory {
 		Environment env = null;
 		try {
 			env = (Environment) environmentClass.newInstance();
+			Tracer.info(EnvironmentFactory.class, "Created environment:" + env);
+
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 			try {

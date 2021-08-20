@@ -5,6 +5,9 @@ public abstract class AbstractSExpression implements SExpression {
 	protected String toStringAsListHelper() {
 		throw new UnsupportedOperationException("Not implemented");
 	}
+	public String toStringAsListHelperPublic() {
+		throw new UnsupportedOperationException("Not implemented");
+	}
 
 	@Override
 	public boolean isNIL() {
